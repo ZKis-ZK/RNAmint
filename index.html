@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="RNA MINT develops digitalised RNA manufacturing platform processes for rapid, high-quality vaccine and therapeutic production.">
+  <title>RNA Manufacturing Innovation Team</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-top">
+      <a href="index.html" class="site-brand">
+        <img src="images/RNA_Mint_Logo_8.png" alt="RNA MINT — RNA Manufacturing Innovation Team">
+      </a>
+      <nav class="site-nav">
+        <a class="active" href="index.html">About</a>
+        <a href="research.html">Research</a>
+        <a href="team.html">Team</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+
+    <section class="home-hero">
+      <div class="home-hero-copy">
+        <p class="eyebrow">RNA Manufacturing Innovation Team</p>
+        <h1>Innovating and digitalising RNA production processes.</h1>
+        <p class="hero-lead">We combine experimental research and computational modelling to accelerate the development and manufacture of high-quality, low-cost RNA vaccines and therapeutics to combat a wide range of diseases.</p>
+        <div class="hero-actions">
+          <a class="button primary" href="research.html">Explore research</a>
+          <a class="button secondary" href="contact.html">Collaborate with us</a>
+        </div>
+        <p class="hero-pi">Led by <a href="https://sheffield.ac.uk/cmbe/people/cbe-academic-staff/zoltan-kis" target="_blank" rel="noopener">Prof. Zoltán Kis</a>, University of Sheffield.</p>
+      </div>
+    </section>
+
+    <section class="spinouts">
+      <div class="section-heading">
+        <p class="eyebrow">Impact</p>
+        <h2>Spin-outs</h2>
+        <p>Research from RNA MINT has seeded the following companies.</p>
+      </div>
+      <div class="spinouts-grid">
+
+        <article class="spinout-card">
+          <a class="spinout-logo-link" href="https://www.simulenta.com/" target="_blank" rel="noopener" aria-label="Simulenta Ltd website">
+            <img src="images/simulenta-logo.png" alt="Simulenta Ltd" class="spinout-logo spinout-logo--crop">
+          </a>
+          <div class="spinout-body">
+            <h3><a href="https://www.simulenta.com/" target="_blank" rel="noopener">Simulenta Ltd.</a></h3>
+            <p>Bioprocess modelling consultancy helping clients make faster, better-informed decisions through techno-economic analysis, kinetic modelling, and multiphysics simulation.</p>
+          </div>
+        </article>
+
+        <article class="spinout-card">
+          <a class="spinout-logo-link" href="https://www.linkedin.com/company/rna-forge/posts/?feedView=all" target="_blank" rel="noopener" aria-label="RNA Forge Ltd LinkedIn">
+            <img src="images/rna-forge-logo.png" alt="RNA Forge Ltd" class="spinout-logo spinout-logo--square">
+          </a>
+          <div class="spinout-body">
+            <h3><a href="https://www.linkedin.com/company/rna-forge/posts/?feedView=all" target="_blank" rel="noopener">RNA Forge Ltd.</a></h3>
+            <p>Accelerating mRNA medicines development and production through advanced analytical methods and manufacturing process innovation.</p>
+          </div>
+        </article>
+
+      </div>
+    </section>
+
+    <section class="gallery">
+      <div class="section-heading">
+        <p class="eyebrow">In the lab</p>
+        <h2>Research &amp; Laboratory Highlights</h2>
+      </div>
+      <div class="gallery-grid">
+        <div class="gallery-item">
+          <img src="images/3D9A1260.jpg" alt="Researcher at analytical instrumentation" loading="lazy">
+        </div>
+        <div class="gallery-item">
+          <img src="images/3D9A1269.jpg" alt="Researcher working at AKTA system" loading="lazy">
+        </div>
+        <div class="gallery-item">
+          <img src="images/3D9A1330.jpg" alt="Researcher at equipment" loading="lazy">
+        </div>
+        <div class="gallery-item">
+          <img src="images/3D9A1356.jpg" alt="Team members discussing research" loading="lazy">
+        </div>
+        <div class="gallery-item">
+          <img src="images/3D9A1385.jpg" alt="Researchers at biosafety cabinet" loading="lazy">
+        </div>
+        <div class="gallery-item">
+          <img src="images/2.jpg" alt="RNA MINT team in the lab" loading="lazy">
+        </div>
+        <div class="gallery-item">
+          <img src="images/1.jpg" alt="RNA MINT team group photo" loading="lazy">
+        </div>
+        <div class="gallery-item">
+          <img src="images/3.JPG" alt="RNA MINT team at conference" loading="lazy">
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Lightbox -->
+  <div id="lightbox" class="lightbox" role="dialog" aria-modal="true" aria-label="Photo viewer">
+    <button class="lightbox-close"  aria-label="Close">&#215;</button>
+    <button class="lightbox-nav lightbox-prev" aria-label="Previous photo">&#8592;</button>
+    <img src="" alt="" class="lightbox-img">
+    <button class="lightbox-nav lightbox-next" aria-label="Next photo">&#8594;</button>
+  </div>
+
+  <script>
+    (function () {
+      const lb      = document.getElementById('lightbox');
+      const lbImg   = lb.querySelector('.lightbox-img');
+      const btnPrev = lb.querySelector('.lightbox-prev');
+      const btnNext = lb.querySelector('.lightbox-next');
+
+      let images = [];
+      let current = 0;
+
+      function show(index) {
+        current = (index + images.length) % images.length;
+        lbImg.src = images[current].src;
+        lbImg.alt = images[current].alt;
+      }
+
+      function open(index) {
+        show(index);
+        lb.classList.add('is-open');
+        document.body.style.overflow = 'hidden';
+      }
+
+      function close() {
+        lb.classList.remove('is-open');
+        document.body.style.overflow = '';
+      }
+
+      images = Array.from(document.querySelectorAll('.gallery-item img'))
+                    .map(img => ({ src: img.src, alt: img.alt }));
+
+      document.querySelectorAll('.gallery-item').forEach((item, i) => {
+        item.addEventListener('click', () => open(i));
+      });
+
+      btnPrev.addEventListener('click', e => { e.stopPropagation(); show(current - 1); });
+      btnNext.addEventListener('click', e => { e.stopPropagation(); show(current + 1); });
+
+      lb.addEventListener('click', e => {
+        if (e.target !== lbImg && !e.target.closest('.lightbox-nav')) close();
+      });
+      lb.querySelector('.lightbox-close').addEventListener('click', close);
+
+      document.addEventListener('keydown', e => {
+        if (!lb.classList.contains('is-open')) return;
+        if (e.key === 'Escape')      close();
+        if (e.key === 'ArrowLeft')   show(current - 1);
+        if (e.key === 'ArrowRight')  show(current + 1);
+      });
+    })();
+  </script>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <a href="index.html" class="footer-logo-wrap">
+        <img src="images/RNA_Mint_Logo_9.png" alt="RNA MINT" class="footer-logo">
+      </a>
+      <div class="footer-center">
+        <p class="footer-uos-name">University of Sheffield</p>
+        <p class="footer-uos-dept">School of Chemical, Materials and Biological Engineering</p>
+      </div>
+      <img src="images/University of Sheffield.png" alt="University of Sheffield" class="uos-logo">
+    </div>
+  </footer>
+</body>
+</html>

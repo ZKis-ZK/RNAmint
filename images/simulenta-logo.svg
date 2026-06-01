@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 560 168" role="img" aria-label="Simulenta">
+  <!-- Outer navy S (thick rounded stroke) -->
+  <path d="M 74,18 C 114,18 114,76 74,76 C 34,76 34,134 74,134"
+        fill="none" stroke="#1B2665" stroke-width="30" stroke-linecap="round"/>
+  <!-- Inner teal S (slightly offset right and down) -->
+  <path d="M 90,38 C 128,38 128,96 88,96 C 48,96 48,154 88,162"
+        fill="none" stroke="#2DC89A" stroke-width="22" stroke-linecap="round"/>
+  <!-- Wordmark -->
+  <text x="175" y="108"
+        font-family="'Plus Jakarta Sans', Arial, Helvetica, sans-serif"
+        font-size="70" font-weight="700" fill="#1B2665">Simulenta</text>
+</svg>

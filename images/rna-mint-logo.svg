@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 112" role="img" aria-label="RNA MINT — RNA Manufacturing Innovation Team">
+  <defs>
+    <linearGradient id="rmGradA" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#2dd4bf"/>
+      <stop offset="100%" stop-color="#005f55"/>
+    </linearGradient>
+  </defs>
+  <rect width="360" height="112" rx="24" fill="transparent"/>
+  <!-- Icon box -->
+  <rect x="14" y="14" width="84" height="84" rx="20" fill="url(#rmGradA)"/>
+  <!-- RNA hairpin / loop motif -->
+  <path d="M36 72 C36 72 28 56 28 44 C28 32 36 26 44 26 C52 26 60 32 60 44 C60 56 52 72 52 72"
+        fill="none" stroke="rgba(255,255,255,0.95)" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <!-- Nucleotide bases (small ticks off the strands) -->
+  <line x1="34" y1="55" x2="26" y2="55" stroke="rgba(255,255,255,0.55)" stroke-width="2.5" stroke-linecap="round"/>
+  <line x1="31" y1="45" x2="22" y2="45" stroke="rgba(255,255,255,0.55)" stroke-width="2.5" stroke-linecap="round"/>
+  <line x1="33" y1="35" x2="25" y2="35" stroke="rgba(255,255,255,0.55)" stroke-width="2.5" stroke-linecap="round"/>
+  <line x1="54" y1="55" x2="62" y2="55" stroke="rgba(255,255,255,0.55)" stroke-width="2.5" stroke-linecap="round"/>
+  <line x1="57" y1="45" x2="66" y2="45" stroke="rgba(255,255,255,0.55)" stroke-width="2.5" stroke-linecap="round"/>
+  <line x1="55" y1="35" x2="63" y2="35" stroke="rgba(255,255,255,0.55)" stroke-width="2.5" stroke-linecap="round"/>
+  <!-- Arrow tip showing direction -->
+  <path d="M40 74 L44 82 L48 74"
+        fill="none" stroke="rgba(255,255,255,0.85)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+  <!-- Wordmark -->
+  <text x="114" y="50" fill="#0c1c1a" font-size="27" font-weight="800"
+        font-family="Inter, ui-sans-serif, system-ui, -apple-system, sans-serif">RNA MINT</text>
+  <text x="114" y="74" fill="#4a6160" font-size="13.5" font-weight="500"
+        font-family="Inter, ui-sans-serif, system-ui, -apple-system, sans-serif">Manufacturing Innovation Team</text>
+</svg>

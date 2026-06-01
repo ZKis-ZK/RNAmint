@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Research areas, grants and platform technologies from the RNA Manufacturing Innovation Team.">
+  <title>Research | RNA Manufacturing Innovation Team</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    /* ── Stats strip ────────────────────────────────────────── */
+    .stats-strip {
+      background: var(--dark-bg);
+      border-radius: var(--radius);
+      padding: 2rem 2.5rem;
+      margin-bottom: 3.5rem;
+    }
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1rem;
+      text-align: center;
+    }
+    .stat-num {
+      display: block;
+      font-size: clamp(2rem, 3.8vw, 3rem);
+      font-weight: 800;
+      color: var(--brand);
+      line-height: 1;
+      letter-spacing: -0.03em;
+      font-variant-numeric: tabular-nums;
+    }
+    .stat-lbl {
+      display: block;
+      font-size: 0.75rem;
+      color: rgba(255,255,255,.58);
+      margin-top: 0.45rem;
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      font-weight: 600;
+    }
+    @media (max-width: 600px) {
+      .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 1.25rem; }
+    }
+
+    /* ── Grant timeline ─────────────────────────────────────── */
+    .tl-outer { padding-bottom: 0.5rem; }
+    @media (max-width: 500px) { .tl-outer { overflow-x: auto; } }
+
+    .tl-row {
+      display: flex;
+      align-items: center;
+      min-height: 34px;
+    }
+    .tl-lbl {
+      width: 118px;
+      min-width: 118px;
+      font-size: 0.73rem;
+      font-weight: 600;
+      color: var(--muted);
+      text-align: right;
+      padding-right: 10px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .tl-trk {
+      flex: 1;
+      position: relative;
+      height: 26px;
+      margin: 3px 0;
+      border-radius: 3px;
+      background: var(--surface-soft);
+      /* Vertical year grid lines */
+      background-image: linear-gradient(90deg, rgba(0,0,0,.07) 0, rgba(0,0,0,.07) 1px, transparent 1px);
+      background-size: 11.11% 100%;
+    }
+
+    /* Year axis row */
+    .tl-axis .tl-trk {
+      background: transparent;
+      height: 22px;
+      margin-bottom: 4px;
+    }
+    .tl-years { position: relative; height: 22px; }
+    .tl-years span {
+      position: absolute;
+      font-size: 0.7rem;
+      font-weight: 700;
+      color: var(--muted);
+      transform: translateX(-50%);
+    }
+
+    /* Bars */
+    .tl-bar {
+      position: absolute;
+      top: 3px; height: 20px;
+      border-radius: 4px;
+      padding: 0 7px;
+      font-size: 0.67rem;
+      font-weight: 700;
+      color: rgba(255,255,255,.95);
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      display: flex;
+      align-items: center;
+      min-width: 3px;
+      cursor: default;
+      transition: filter .15s, transform .15s;
+    }
+    .tl-bar:hover { filter: brightness(1.18); transform: scaleY(1.18); z-index: 10; }
+    .tl-bar.pi  { background: var(--brand-deep); }
+    .tl-bar.coi { background: var(--brand); opacity: .82; }
+    .tl-bar.coi:hover { opacity: 1; }
+
+    /* Today marker */
+    .tl-rows { position: relative; }
+    .tl-rows { padding-bottom: 22px; }
+    .tl-today {
+      position: absolute;
+      top: 0; bottom: 0;
+      width: 2px;
+      background: #dc2626;
+      z-index: 6;
+      pointer-events: none;
+    }
+    .tl-today::before {
+      content: 'Today';
+      position: absolute;
+      bottom: -18px;
+      top: auto;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 0.62rem;
+      font-weight: 800;
+      color: #dc2626;
+      white-space: nowrap;
+      text-transform: uppercase;
+      letter-spacing: .04em;
+    }
+
+    /* Legend */
+    .tl-legend {
+      display: flex;
+      gap: 1.5rem;
+      margin-bottom: 0.6rem;
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--muted-strong);
+    }
+    .tl-legend span::before { content: '▬'; margin-right: 5px; }
+    .tl-pi::before  { color: var(--brand-deep) !important; }
+    .tl-coi::before { color: var(--brand) !important; }
+    .tl-now::before { content: '│' !important; color: #dc2626 !important; }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-top">
+      <a href="index.html" class="site-brand">
+        <img src="images/RNA_Mint_Logo_8.png" alt="RNA MINT — RNA Manufacturing Innovation Team">
+      </a>
+      <nav class="site-nav">
+        <a href="index.html">About</a>
+        <a class="active" href="research.html">Research</a>
+        <a href="team.html">Team</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="page-hero">
+      <h1>Our Research</h1>
+      <h2>Transforming RNA Vaccine and Therapeutics Manufacturing</h2>
+    </section>
+
+    <!-- Stats strip -->
+    <div class="stats-strip">
+      <div class="stats-grid">
+        <div>
+          <span class="stat-num" data-target="20" data-prefix="£" data-suffix="M+">£0M+</span>
+          <span class="stat-lbl">Research funding (incl. collaborative)</span>
+        </div>
+        <div>
+          <span class="stat-num" data-target="5">0</span>
+          <span class="stat-lbl">Active grants</span>
+        </div>
+        <div>
+          <span class="stat-num" data-target="40" data-suffix="+">0+</span>
+          <span class="stat-lbl">Researchers</span>
+        </div>
+        <div>
+          <span class="stat-num" data-target="50" data-suffix="+">0+</span>
+          <span class="stat-lbl">Publications</span>
+        </div>
+      </div>
+    </div>
+
+    <section>
+      <p>Our cutting-edge research merges experimental and computational methods to revolutionize how RNA vaccines and therapeutics are produced. We're developing an advanced manufacturing platform that enables rapid, large-scale, and cost-effective production of RNA-based medicines—without compromising on quality.</p>
+      <p>To achieve this, we are integrating physical and digital technologies within a Quality by Digital Design framework, guided by rigorous techno-economic modelling. Our platform will provide powerful digital tools and computer models that directly link RNA product quality to specific steps in the production process—accelerating both process development and operation.</p>
+      <p>RNA platform technologies have already proven their potential during the COVID-19 pandemic, enabling vaccines to be developed and deployed at unprecedented speeds. Now, we’re pushing the boundaries further—scaling up production volumes and rates, reducing costs, and ensuring consistent quality across diverse applications.</p>
+      <p>Because RNA vaccines and therapeutics can be produced using a universal platform, the same infrastructure can be rapidly adapted to target multiple diseases. As global demand for flexible, high-quality RNA manufacturing grows, the technologies we are developing are poised to become a cornerstone of future biopharmaceutical production.</p>
+    </section>
+
+    <section>
+      <h2>Key research areas</h2>
+      <ul>
+        <li>Experimental mRNA vaccine and RNA therapeutics manufacturing process development: process intensification, continuous manufacturing and scale-up.</li>
+        <li>Development and optimisation of continuous in vitro transcription (IVT) reaction for mRNA synthesis, continuous mRNA downstream purification processes based on continuous chromatography and tangential flow filtration unit operations, as well as continuous LNP formulation unit operations.</li>
+        <li>Development of new unit operations and design of process equipment for mRNA manufacturing.</li>
+        <li>We are developing high-performing processes for the production of not only messenger RNA (mRNA), but also circular RNA (circRNA) and self-amplifying RNA (saRNA).</li>
+        <li>Process digitalisation: development of soft sensors and digital twins to monitor and control the manufacturing of RNA vaccines, RNA therapeutics and other biopharmaceuticals.</li>
+        <li>Techno-economic modelling for reducing the costs, increasing production rates and increasing production volumes of RNA vaccines, RNA therapeutics and other biopharmaceuticals.</li>
+        <li>Quality by Digital Design for consistently ensuring product quality, support scale-up, technology transfer, and for accelerating the regulatory approval process.</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>Publications</h2>
+      <p>Our list of publications is available on the <a href="https://www.sheffield.ac.uk/cmbe/people/cbe-academic-staff/zoltan-kis" target="_blank" rel="noopener">University of Sheffield webpage</a> and on the <a href="https://scholar.google.com/citations?user=uciPYzUAAAAJ&hl=en" target="_blank" rel="noopener">Google Scholar page</a> of Prof Zoltán Kis.</p>
+    </section>
+
+    <!-- Grant timeline -->
+    <section>
+      <div class="section-heading">
+        <h2>Research timeline</h2>
+        <p>All grants spanning their funding period. Hover a bar for details.</p>
+      </div>
+      <div class="tl-legend">
+        <span class="tl-pi">Principal Investigator</span>
+        <span class="tl-coi">Co-Investigator</span>
+        <span class="tl-now" id="tl-today-label"></span>
+      </div>
+      <div class="tl-outer">
+        <div class="tl-row tl-axis">
+          <div class="tl-lbl"></div>
+          <div class="tl-trk tl-years" id="tl-years">
+            <span style="left:0%">2020</span>
+            <span style="left:11.11%">2021</span>
+            <span style="left:22.22%">2022</span>
+            <span style="left:33.33%">2023</span>
+            <span style="left:44.44%">2024</span>
+            <span style="left:55.56%">2025</span>
+            <span style="left:66.67%">2026</span>
+            <span style="left:77.78%">2027</span>
+            <span style="left:88.89%">2028</span>
+          </div>
+        </div>
+        <div class="tl-rows">
+
+          <div class="tl-row">
+            <div class="tl-lbl">UKRI</div>
+            <div class="tl-trk"><div class="tl-bar coi" data-start="2020-07" data-end="2022-01"
+              title="Meeting the UK demand for COVID-19 vaccines — UKRI — Co-I — £445,000 — Jul 2020 → Jan 2022">COVID-19</div></div>
+          </div>
+
+          <div class="tl-row">
+            <div class="tl-lbl">Kidney Res. UK</div>
+            <div class="tl-trk"><div class="tl-bar coi" data-start="2020-09" data-end="2021-08"
+              title="Cell catcher: cell isolation from urine samples — Kidney Research UK — Co-I — £40,000 — Sep 2020 → Aug 2021">Cell catcher</div></div>
+          </div>
+
+          <div class="tl-row">
+            <div class="tl-lbl">Wellcome Trust</div>
+            <div class="tl-trk"><div class="tl-bar coi" data-start="2020-09" data-end="2022-08"
+              title="Live-attenuated whole parasite malaria vaccine — Wellcome Trust — Co-I — £727,000 — Sep 2020 → Aug 2022">Malaria vaccine</div></div>
+          </div>
+
+          <div class="tl-row">
+            <div class="tl-lbl">Wellcome Leap</div>
+            <div class="tl-trk"><div class="tl-bar pi"  data-start="2021-12" data-end="2024-10"
+              title="Digitalised RNA production for therapy &amp; pandemic preparedness — Wellcome Leap R3 — PI — Multi-million USD — Dec 2021 → Oct 2024">RNA R3 programme</div></div>
+          </div>
+
+          <div class="tl-row">
+            <div class="tl-lbl">UKRI HEIF</div>
+            <div class="tl-trk"><div class="tl-bar coi" data-start="2022-01" data-end="2022-07"
+              title="Innovating RNA vaccine and therapeutic manufacturing — UKRI HEIF — Co-I — £74,000 — Jan 2022 → Jul 2022"></div></div>
+          </div>
+
+          <div class="tl-row">
+            <div class="tl-lbl">BBSRC</div>
+            <div class="tl-trk"><div class="tl-bar coi" data-start="2023-06" data-end="2024-12"
+              title="NanoAnalyzer: technology to analyse life at the nanoscale — BBSRC ALERT — Co-I — £242,000 — Jun 2023">NanoAnalyzer</div></div>
+          </div>
+
+          <div class="tl-row">
+            <div class="tl-lbl">Innovate UK</div>
+            <div class="tl-trk"><div class="tl-bar pi"  data-start="2023-10" data-end="2026-03"
+              title="Automated RNA process-in-a-box for outbreak response — Innovate UK — PI — £2M — Oct 2023 → Mar 2026">RNA process-in-box</div></div>
+          </div>
+
+          <div class="tl-row">
+            <div class="tl-lbl">BBSRC iCASE</div>
+            <div class="tl-trk"><div class="tl-bar coi" data-start="2023-10" data-end="2027-09"
+              title="Polymerase engineering for next-gen RNA therapeutics (AstraZeneca) — BBSRC — Co-I — £84,000 — Oct 2023 → Sep 2027">AZ iCASE</div></div>
+          </div>
+
+          <div class="tl-row">
+            <div class="tl-lbl">EPSRC</div>
+            <div class="tl-trk"><div class="tl-bar coi" data-start="2023-10" data-end="2027-09"
+              title="Quantification of dsRNA impurities via microfluidics spectroscopy — EPSRC / RedShift — Co-I — £130,000 — Oct 2023 → Sep 2027">dsRNA analytics</div></div>
+          </div>
+
+          <div class="tl-row">
+            <div class="tl-lbl">EPSRC / DHSC</div>
+            <div class="tl-trk"><div class="tl-bar coi" data-start="2023-11" data-end="2028-11"
+              title="UK–South-East Asia vaccine manufacturing research hub — EPSRC/DHSC — Co-I — £7.6M — Nov 2023 → Nov 2028">UK-SEA Vax Hub</div></div>
+          </div>
+
+          <div class="tl-row">
+            <div class="tl-lbl">BBSRC</div>
+            <div class="tl-trk"><div class="tl-bar coi" data-start="2024-04" data-end="2027-03"
+              title="Electrospun mucoadhesive matrices for mRNA vaccine delivery — BBSRC — Co-I — £2,382,846 — Apr 2024 → Mar 2027">Electrospun mRNA</div></div>
+          </div>
+
+          <div class="tl-row">
+            <div class="tl-lbl">CEPI</div>
+            <div class="tl-trk"><div class="tl-bar pi"  data-start="2024-10" data-end="2027-09"
+              title="RNAbox: automated continuous RNA platform process-in-a-box — CEPI — PI — £3.7M — Oct 2024 → Sep 2027">RNAbox</div></div>
+          </div>
+
+          <div class="tl-today" id="tl-today-marker"></div>
+        </div><!-- .tl-rows -->
+      </div><!-- .tl-outer -->
+    </section>
+
+    <section>
+      <h2>We are grateful to our funders</h2>
+      <div class="funders-grid">
+        <img src="images/funders/CEPI-logo.png"                                                     alt="CEPI" class="funder-logo">
+        <img src="images/funders/Logo_of_United_Kingdom_Department_of_Health_and_Social_Care.png"   alt="UK Department of Health and Social Care" class="funder-logo">
+        <img src="images/funders/Wellcome-Leap-R3-logo.jpeg"                                        alt="Wellcome Leap R3" class="funder-logo">
+        <img src="images/funders/ukri-bbsrc-logo.png"                                               alt="BBSRC" class="funder-logo">
+        <img src="images/funders/ukri-innovate-uk-logo.png"                                         alt="Innovate UK" class="funder-logo">
+        <img src="images/funders/ukri-epsrc-logo.png"                                               alt="EPSRC" class="funder-logo">
+      </div>
+    </section>
+
+    <section>
+      <div class="section-heading">
+        <h2>Current grants</h2>
+      </div>
+      <div class="table-wrap">
+        <table class="grants-table">
+          <thead>
+            <tr>
+              <th>Date</th>
+              <th>Funder</th>
+              <th>Role</th>
+              <th>Title</th>
+              <th style="text-align:right">Funding amount</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="grant-date">
+                1 Oct 2024
+                <span class="date-sep">–</span>
+                30 Sep 2027
+              </td>
+              <td>Coalition for Epidemic Preparedness Innovations (CEPI)</td>
+              <td class="grant-role">Principal Investigator</td>
+              <td class="grant-title">RNAbox<sup>TM</sup>: An automated continuous closed RNA platform process-in-a-box for rapid outbreak-response disease-agnostic RNA vaccine development and mass-manufacturing at high-quality and low-cost</td>
+              <td class="grant-amount">£3.7 million<br><span style="font-weight:400;font-size:0.85em">(US $4.8 million)</span></td>
+            </tr>
+            <tr>
+              <td class="grant-date">
+                1 Apr 2024
+                <span class="date-sep">–</span>
+                31 Mar 2027
+              </td>
+              <td>Biotechnology and Biological Sciences Research Council (BBSRC)<br><small>BB/Y007514/1 · Engineering Biology, Mission Awards</small></td>
+              <td class="grant-role">Co&#8209;Investigator</td>
+              <td class="grant-title">Electrospun mucoadhesive matrices for polymersome-mediated mRNA vaccine delivery</td>
+              <td class="grant-amount">£2,382,846</td>
+            </tr>
+            <tr>
+              <td class="grant-date">
+                1 Nov 2023
+                <span class="date-sep">–</span>
+                1 Nov 2028
+              </td>
+              <td>UK Department of Health and Social Care &amp; Engineering and Physical Sciences Research Council (EPSRC)<br><small>Hub, UK Vaccine Network</small></td>
+              <td class="grant-role">Co&#8209;Investigator</td>
+              <td class="grant-title">UK-south-east Asia-vaccine manufacturing research hub</td>
+              <td class="grant-amount">£7.6 million</td>
+            </tr>
+            <tr>
+              <td class="grant-date">
+                1 Oct 2023
+                <span class="date-sep">–</span>
+                30 Sep 2027
+              </td>
+              <td>Engineering and Physical Sciences Research Council (EPSRC)<br><small>Doctoral Training Partnership with RedShift BioAnalytics</small></td>
+              <td class="grant-role">Co&#8209;Investigator</td>
+              <td class="grant-title">Quantification of double-stranded mRNA impurities using microfluidics modulation spectroscopy</td>
+              <td class="grant-amount">£130,000</td>
+            </tr>
+            <tr>
+              <td class="grant-date">Jun 2023</td>
+              <td>Biotechnology and Biological Sciences Research Council (BBSRC)<br><small>BB/X018989/1 · ALERT 2022</small></td>
+              <td class="grant-role">Co&#8209;Investigator</td>
+              <td class="grant-title">NanoAnalyzer: An emerging technology to analyse life at the nanoscale</td>
+              <td class="grant-amount">£242,400</td>
+            </tr>
+            <tr>
+              <td class="grant-date">
+                1 Oct 2023
+                <span class="date-sep">–</span>
+                30 Sep 2027
+              </td>
+              <td>Biotechnology and Biological Sciences Research Council (BBSRC)<br><small>iCASE PhD studentship with AstraZeneca Plc</small></td>
+              <td class="grant-role">Co&#8209;Investigator</td>
+              <td class="grant-title">Synthetic Biology-Based Polymerase and Promoter Engineering for Production of Next-Generation RNA Therapeutics</td>
+              <td class="grant-amount">£84,000</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-heading">
+        <h2>Previous grants</h2>
+      </div>
+      <div class="table-wrap">
+        <table class="grants-table">
+          <thead>
+            <tr>
+              <th>Date</th>
+              <th>Funder</th>
+              <th>Role</th>
+              <th>Title</th>
+              <th style="text-align:right">Funding amount</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="grant-date">
+                1 Oct 2023
+                <span class="date-sep">–</span>
+                31 Mar 2026
+              </td>
+              <td>Innovate UK<br><small>SBRI: Vaccine development for potential epidemic diseases, UK Vaccine Network</small></td>
+              <td class="grant-role">Principal Investigator</td>
+              <td class="grant-title">Automated and digitalised RNA process-in-a-box for rapid outbreak-response disease-agnostic RNA vaccine/therapeutic development and manufacturing at high-quality and low cost</td>
+              <td class="grant-amount">£2 million</td>
+            </tr>
+            <tr>
+              <td class="grant-date">
+                6 Dec 2021
+                <span class="date-sep">–</span>
+                30 Oct 2024
+              </td>
+              <td>Wellcome Leap<br><small>RNA Readiness + Response (R3)</small></td>
+              <td class="grant-role">Principal Investigator</td>
+              <td class="grant-title">Digitalised, small-scale and high-throughput process for distributed and automated RNA production for therapy and pandemic preparedness</td>
+              <td class="grant-amount">Multi-million USD<br><small>(confidential)</small></td>
+            </tr>
+            <tr>
+              <td class="grant-date">
+                1 Jan 2022
+                <span class="date-sep">–</span>
+                31 Jul 2022
+              </td>
+              <td>UK Research and Innovation (UKRI)<br><small>Research England: HEIF — Covid Recovery</small></td>
+              <td class="grant-role">Co&#8209;Investigator</td>
+              <td class="grant-title">Innovating the process of RNA vaccine and therapeutic manufacturing – building external partnerships and exploring commercialisation opportunities</td>
+              <td class="grant-amount">£74,331</td>
+            </tr>
+            <tr>
+              <td class="grant-date">
+                20 Jul 2020
+                <span class="date-sep">–</span>
+                19 Jan 2022
+              </td>
+              <td>UK Research and Innovation (UKRI)<br><small>EP/V01479X/1 · COVID-19</small></td>
+              <td class="grant-role">Co&#8209;Investigator</td>
+              <td class="grant-title">Meeting the UK demand for COVID-19/SARS-CoV-2 vaccines via integrated manufacturing and supply chain optimisation</td>
+              <td class="grant-amount">£445,000</td>
+            </tr>
+            <tr>
+              <td class="grant-date">
+                1 Sep 2020
+                <span class="date-sep">–</span>
+                31 Aug 2022
+              </td>
+              <td>Wellcome Trust<br><small>220503/Z/20/Z · Innovator Awards</small></td>
+              <td class="grant-role">Co&#8209;Investigator</td>
+              <td class="grant-title">A pathway to a live-attenuated whole parasite malaria vaccine</td>
+              <td class="grant-amount">£727,458</td>
+            </tr>
+            <tr>
+              <td class="grant-date">
+                1 Sep 2020
+                <span class="date-sep">–</span>
+                31 Aug 2021
+              </td>
+              <td>Kidney Research UK<br><small>Ref. 2548 · Paediatric Innovation</small></td>
+              <td class="grant-role">Co&#8209;Investigator</td>
+              <td class="grant-title">Cell catcher: developing a new method for cell isolation and preservation from urine samples of Bardet-Biedl Syndrome patients</td>
+              <td class="grant-amount">£39,997</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+
+  <script>
+  (function () {
+    function countUp(el) {
+      const target = parseFloat(el.dataset.target);
+      const prefix = el.dataset.prefix || '';
+      const suffix = el.dataset.suffix || '';
+      const dur = 1800, t0 = performance.now();
+      (function tick(now) {
+        const p   = Math.min(1, (now - t0) / dur);
+        const val = (1 - Math.pow(1 - p, 3)) * target;
+        el.textContent = prefix + (Number.isInteger(target) ? Math.floor(val) : val.toFixed(1)) + suffix;
+        if (p < 1) requestAnimationFrame(tick);
+      })(t0);
+    }
+    const strip = document.querySelector('.stats-strip');
+    if (strip) {
+      new IntersectionObserver((entries) => {
+        entries.forEach(e => {
+          if (!e.isIntersecting) return;
+          e.target.querySelectorAll('[data-target]').forEach(countUp);
+        });
+      }, { threshold: 0.4 }).observe(strip);
+    }
+
+    /* ── Timeline: fully dynamic — positions all bars and the Today
+          marker from data-start / data-end attributes, and extends
+          the visible range automatically to always include today. ── */
+    (function () {
+      const LBL_W  = 118; // must match .tl-lbl width in CSS
+      const MON    = ['Jan','Feb','Mar','Apr','May','Jun',
+                      'Jul','Aug','Sep','Oct','Nov','Dec'];
+
+      // Parse "YYYY-MM" string → Date (1st of month)
+      function pd(s) {
+        const [y, m] = s.split('-').map(Number);
+        return new Date(y, m - 1, 1);
+      }
+      // Whole months between two dates
+      function mDiff(a, b) {
+        return (b.getFullYear() - a.getFullYear()) * 12 +
+               (b.getMonth()   - a.getMonth());
+      }
+
+      const TL_START = new Date(2020, 0, 1); // fixed history start
+      const now      = new Date();
+
+      // Find the latest grant end from the DOM
+      const bars = Array.from(document.querySelectorAll('.tl-bar[data-start]'));
+      let latestEnd = new Date(2028, 11, 1);
+      bars.forEach(b => {
+        if (b.dataset.end) {
+          const d = pd(b.dataset.end);
+          if (d > latestEnd) latestEnd = d;
+        }
+      });
+
+      // Timeline end = first Jan after: max(latestEnd + 6m, today + 18m)
+      const minEnd = new Date(Math.max(
+        new Date(latestEnd.getFullYear(), latestEnd.getMonth() + 6),
+        new Date(now.getFullYear(), now.getMonth() + 18)
+      ));
+      const TL_END = new Date(
+        minEnd.getFullYear() + (minEnd.getMonth() > 0 ? 1 : 0), 0, 1
+      );
+      const TL_MONTHS = mDiff(TL_START, TL_END);
+
+      // Convert a date to a 0-100 percentage along the timeline
+      function toPct(d) { return mDiff(TL_START, d) / TL_MONTHS * 100; }
+
+      // Position all grant bars
+      bars.forEach(b => {
+        const s   = pd(b.dataset.start);
+        const e   = b.dataset.end
+                      ? pd(b.dataset.end)
+                      : new Date(s.getFullYear(), s.getMonth() + 18);
+        const lft = toPct(s);
+        const wid = Math.max(0.3, toPct(e) - lft);
+        b.style.left  = lft.toFixed(3) + '%';
+        b.style.width = wid.toFixed(3) + '%';
+      });
+
+      // Re-generate year labels and adjust grid-line spacing
+      const yearsEl = document.getElementById('tl-years');
+      if (yearsEl) {
+        yearsEl.innerHTML = '';
+        const startY = TL_START.getFullYear();
+        const endY   = TL_END.getFullYear();
+        for (let y = startY; y <= endY; y++) {
+          const sp  = document.createElement('span');
+          sp.textContent = y;
+          sp.style.left  = toPct(new Date(y, 0, 1)).toFixed(2) + '%';
+          yearsEl.appendChild(sp);
+        }
+        // Update grid-line interval on every track row
+        const yearPct = (100 / (endY - startY)).toFixed(3) + '% 100%';
+        document.querySelectorAll('.tl-trk').forEach(t => {
+          if (!t.classList.contains('tl-years'))
+            t.style.backgroundSize = yearPct;
+        });
+      }
+
+      // Position the Today marker (works at any future date)
+      const pct    = toPct(now);
+      const marker = document.getElementById('tl-today-marker');
+      const label  = document.getElementById('tl-today-label');
+      if (marker) {
+        marker.style.left =
+          'calc(' + LBL_W + 'px + (100% - ' + LBL_W + 'px) * ' +
+          (pct / 100).toFixed(5) + ')';
+      }
+      if (label) {
+        label.textContent = MON[now.getMonth()] + ' ' + now.getFullYear();
+      }
+    })();
+  })();
+  </script>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <a href="index.html" class="footer-logo-wrap">
+        <img src="images/RNA_Mint_Logo_9.png" alt="RNA MINT" class="footer-logo">
+      </a>
+      <div class="footer-center">
+        <p class="footer-uos-name">University of Sheffield</p>
+        <p class="footer-uos-dept">School of Chemical, Materials and Biological Engineering</p>
+      </div>
+      <img src="images/University of Sheffield.png" alt="University of Sheffield" class="uos-logo">
+    </div>
+  </footer>
+</body>
+</html>

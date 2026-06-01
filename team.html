@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Meet the researchers, technical staff, students and alumni of the RNA Manufacturing Innovation Team.">
+  <title>Team | RNA Manufacturing Innovation Team</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    /* ── Alumni timeline ──────────────────────────────────────── */
+    .at-outer { padding-bottom: .5rem; margin-top: 1rem; }
+    @media (max-width: 500px) { .at-outer { overflow-x: auto; } }
+    .at-row   { display: flex; align-items: center; min-height: 30px; }
+    .at-lbl {
+      width: 175px; min-width: 175px;
+      font-size: .72rem; font-weight: 600; color: var(--muted);
+      display: flex; align-items: center; justify-content: flex-end;
+      gap: 4px; padding-right: 10px;
+      white-space: nowrap; overflow: hidden;
+    }
+    .at-li { display: inline-flex; align-items: center; flex-shrink: 0;
+      color: #0a66c2; opacity: .65; text-decoration: none;
+      transition: opacity .15s; }
+    .at-li:hover { opacity: 1; }
+    .at-li svg { width: 11px; height: 11px; }
+    .at-trk {
+      flex: 1; position: relative; height: 24px; margin: 3px 0; border-radius: 3px;
+      background: var(--surface-soft);
+      background-image: linear-gradient(90deg, rgba(0,0,0,.07) 0, rgba(0,0,0,.07) 1px, transparent 1px);
+      background-size: 11.11% 100%;
+    }
+    .at-axis .at-trk { background: transparent; height: 22px; margin-bottom: 4px; }
+    .at-years { position: relative; height: 22px; }
+    .at-years span { position: absolute; font-size: .7rem; font-weight: 700; color: var(--muted); transform: translateX(-50%); }
+    .at-bar {
+      position: absolute; top: 3px; height: 18px; border-radius: 4px;
+      padding: 0 7px; font-size: .65rem; font-weight: 700;
+      color: rgba(255,255,255,.95); overflow: hidden; white-space: nowrap;
+      text-overflow: ellipsis; display: flex; align-items: center;
+      min-width: 3px; cursor: default;
+      transition: filter .15s, transform .15s;
+    }
+    .at-bar:hover { filter: brightness(1.15); transform: scaleY(1.15); z-index: 10; }
+    .at-bar.at-postdoc { background: var(--brand-deep); }
+    .at-bar.at-ra      { background: var(--brand); }
+    .at-bar.at-phd     { background: #5a9e94; }
+    .at-bar.at-msc     { background: #74b8b0; }
+    .at-bar.at-beng    { background: #8ecac2; }
+    .at-bar.at-surf    { background: #a8d8d2; }
+    .at-section-hdr {
+      display: flex; align-items: center;
+      padding: .35rem 0 .15rem 175px;
+      margin-top: 1.1rem;
+      font-size: .67rem; font-weight: 800;
+      text-transform: uppercase; letter-spacing: .07em;
+      color: var(--brand-deep);
+      border-top: 1px solid var(--line);
+    }
+    /* No top gap before the very first header */
+    .at-rows .at-section-hdr:first-child {
+      margin-top: 0;
+      border-top: none;
+    }
+    .at-rows { position: relative; padding-bottom: 22px; }
+    .at-today {
+      position: absolute; top: 0; bottom: 0; width: 2px;
+      background: #dc2626; z-index: 6; pointer-events: none;
+    }
+    .at-today::before {
+      content: 'Today'; position: absolute; bottom: -18px; top: auto; left: 50%;
+      transform: translateX(-50%);
+      font-size: .62rem; font-weight: 800; color: #dc2626;
+      white-space: nowrap; text-transform: uppercase; letter-spacing: .04em;
+    }
+    .at-legend {
+      display: flex; flex-wrap: wrap; gap: 1.1rem; margin-bottom: .75rem;
+      font-size: .82rem; font-weight: 600; color: var(--muted-strong);
+      align-items: center;
+    }
+    .at-legend span { display: inline-flex; align-items: center; gap: 5px; }
+    .at-legend span::before { content: '▬'; font-size: 1.1em; }
+    .at-legend .at-postdoc::before { color: var(--brand-deep); }
+    .at-legend .at-ra::before      { color: var(--brand); }
+    .at-legend .at-phd::before     { color: #5a9e94; }
+    .at-legend .at-msc::before     { color: #74b8b0; }
+    .at-legend .at-beng::before    { color: #8ecac2; }
+    .at-legend .at-surf::before    { color: #a8d8d2; }
+    .at-now-legend {
+      color: #dc2626; font-weight: 700; font-size: .82rem;
+      margin-left: .5rem;
+    }
+    .at-now-legend::before { content: "│"; margin-right: 4px; color: #dc2626; font-size: 1em; }
+    .alumni-details { margin-top: 1.5rem; }
+    .alumni-details summary {
+      cursor: pointer; font-size: .9rem; font-weight: 700;
+      color: var(--brand-deep); display: inline-flex;
+      align-items: center; gap: .4rem; padding: .4rem 0;
+      list-style: none;
+    }
+    .alumni-details summary::before { content: '▶'; font-size: .7em; transition: transform .2s; }
+    .alumni-details[open] summary::before { transform: rotate(90deg); }
+    .alumni-details summary::-webkit-details-marker { display: none; }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-top">
+      <a href="index.html" class="site-brand">
+        <img src="images/RNA_Mint_Logo_8.png" alt="RNA MINT — RNA Manufacturing Innovation Team">
+      </a>
+      <nav class="site-nav">
+        <a href="index.html">About</a>
+        <a href="research.html">Research</a>
+        <a class="active" href="team.html">Team</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="page-hero">
+      <h1>RNA Manufacturing Innovation Team</h1>
+      <h2>A multidisciplinary team driving the next generation of RNA vaccine and therapeutics manufacturing.</h2>
+    </section>
+
+    <section class="intro">
+      <p>We are a diverse and welcoming research team based in the School of Chemical, Materials and Biological Engineering at the University of Sheffield, bringing together expertise across multiple disciplines and career stages.</p>
+      <p>Our collaborative environment fosters innovation and excellence, as we work together on cutting-edge research projects. Meet our talented team members below and learn about their unique contributions and expertise!</p>
+    </section>
+
+    <section>
+      <article class="person">
+        <div class="person-card">
+          <img src="images/Professor Zoltan Kis.png" alt="Professor Zoltán Kis">
+          <div class="person-details">
+            <h2>Professor Zoltán Kis — Team Leader</h2>
+            <p>Zoltán Kis is a Professor of Bioprocess Engineering at the School of Chemical, Materials and Biological Engineering at the University of Sheffield, and an Honorary Lecturer at the Department of Chemical Engineering, Imperial College London.</p>
+            <p>Zoltán is leading a multidisciplinary team that is innovating and digitalising RNA vaccine and therapeutics production platform technologies. His work is addressing the challenges of producing large volumes of RNA-based vaccines and therapeutics, rapidly, at high quality and at low cost in a disease-agnostic manner.</p>
+            <p>Zoltán's work on RNA vaccine manufacturing and production process modelling received high-profile media coverage in the UK and internationally, including BBC World News, BBC Radio, Sky News, RTL TV, China Central Television (CCTV), Nature News, The Lancet, BMJ, CNN, The Wall Street Journal, Financial Times, The New York Times and many more.</p>
+            <p>He also advises policy experts, non-governmental organisations and companies, having acted as a consultant for techno-economic modelling by the WHO mRNA Technology Transfer Hub, and sitting on the Sanofi mRNA CMC Advisory Board as well as the Pfizer mRNA technology Advisory Board.</p>
+            <h3 style="margin-top:1.2rem;margin-bottom:.05rem;font-size:1rem;">Teaching</h3>
+            <p style="margin-top:.1rem;margin-bottom:.3rem;">Zoltán is a Fellow of the Higher Education Academy and is passionate about teaching and training the next generation of chemical and biological engineers.</p>
+            <ol style="margin:.25rem 0;padding-left:1.2rem;line-height:1.55;">
+              <li>CMB325-CMB456 — Biopharmaceutical and Vaccine Manufacturing, 3rd Year UG &amp; M.Sc. <em>(Module Leader &amp; Lecturer)</em></li>
+              <li>CMB102 — Introduction to Bioengineering, 1st Year UG <em>(Lecturer)</em></li>
+            </ol>
+            <p>Contact Zoltán via <a target="_blank" rel="noopener" href="https://www.linkedin.com/in/zoltan-kis-phd/">LinkedIn</a> or <a href="mailto:z.kis@sheffield.ac.uk">z.kis@sheffield.ac.uk</a>.</p>
+          </div>
+        </div>
+      </article>
+
+      <article class="person">
+        <div class="person-card">
+          <img src="images/Dr Mabrouka Maamra.png" alt="Dr Mabrouka Maamra">
+          <div class="person-details">
+            <h2>Dr Mabrouka Maamra — Project and Laboratory Manager</h2>
+            <p>Mabrouka Maamra joined the group as a Project Manager in January 2023. Before joining the group, her research involved biomarkers and therapeutic treatment in kidney fibrosis and endocrinology dysregulation in laboratories in Sheffield, Italy and Australia.</p>
+            <p>She was previously funded via the Wellcome Leap R3 program and now by CEPI. By participating in our projects, Mabrouka is keen on sharing her passion for science to help achieve rapid and efficient access to vaccines/therapeutics while contributing to human health, and particularly interested in equality of access worldwide.</p>
+            <p>Contact Dr Mabrouka Maamra via <a target="_blank" rel="noopener" href="https://www.linkedin.com/in/mabrouka-maamra-839a6977?lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_view_base_contact_details%3BffkxJWOSQhCDWCC7Vh%2BlJg%3D%3D">LinkedIn</a> or <a href="mailto:m.maamra@sheffield.ac.uk">m.maamra@sheffield.ac.uk</a>.</p>
+          </div>
+        </div>
+      </article>
+
+      <article class="person">
+        <div class="person-card">
+          <img src="images/Dr Caroline Evans.png" alt="Dr Caroline Evans">
+          <div class="person-details">
+            <h2>Dr Caroline Evans — Senior Research Fellow</h2>
+            <p>Caroline Evans is a research fellow at the University of Sheffield working on analysis methods for mRNA based Vaccine and Therapeutics Products. Dr Caroline Evans has a substantive and successful track record in bioanalytical analysis using mass spectrometry based workflows (Scopus h index 30).</p>
+            <p>Her research portfolio includes bioprocess optimization by protein analysis using quantitative proteomics and more recently method optimisation for analysis of mRNA vaccines, flexibility enabled by experience of customising workflows to specific applications.</p>
+            <p>Contact Dr Caroline Evans via <a target="_blank" rel="noopener" href="https://www.linkedin.com/in/caroline-evans-66889740/">LinkedIn</a> or <a href="mailto:caroline.evans@sheffield.ac.uk">caroline.evans@sheffield.ac.uk</a>.</p>
+          </div>
+        </div>
+      </article>
+
+      <article class="person">
+        <div class="person-card">
+          <img src="images/Dr Adithya Nair.png" alt="Dr Adithya Nair">
+          <div class="person-details">
+            <h2>Dr Adithya Nair — Research Associate</h2>
+            <p>Dr. Adithya Nair is a post-doctoral research associate within the UK-SEA Vax Hub at the University of Sheffield. His work focuses on techno-economic modeling and process development for mRNA-based product manufacturing. He obtained his doctoral degree from Osaka University, Japan, and holds a master's degree in Industrial Biotechnology.</p>
+            <p>Contact Dr Adithya Nair via <a target="_blank" rel="noopener" href="http://linkedin.com/in/adithya-nair">LinkedIn</a> or <a href="mailto:adithya.nair@sheffield.ac.uk">adithya.nair@sheffield.ac.uk</a>.</p>
+          </div>
+        </div>
+      </article>
+
+      <article class="person">
+        <div class="person-card">
+          <img src="images/Dr Manoj Pohare.png" alt="Dr Manoj Pohare">
+          <div class="person-details">
+            <h2>Dr Manoj Pohare — Research Associate</h2>
+            <p>Manoj is a protein biochemist with a PhD from Ehime University, Japan (MEXT fellow). He is currently working on the ambitious "RNAbox" project, which aims to create a continuous high-quality, low-cost RNA manufacturing process contained in a box for rapid vaccine and therapeutic development. His research focuses on both the upstream and downstream aspects of the mRNA manufacturing process.</p>
+            <p>Contact Dr Manoj Pohare via <a target="_blank" rel="noopener" href="https://www.linkedin.com/in/dr-manoj-pohare-b6665116/">LinkedIn</a> or <a href="mailto:m.pohare@sheffield.ac.uk">m.pohare@sheffield.ac.uk</a>.</p>
+          </div>
+        </div>
+      </article>
+
+      <article class="person">
+        <div class="person-card">
+          <img src="images/Dr Emma Welbourne.png" alt="Dr Emma Welbourne">
+          <div class="person-details">
+            <h2>Dr Emma Welbourne — Academic Visitor</h2>
+            <p>Emma is currently the COO and Co-Founder of RNA Forge Ltd. Emma was previously a post-doctoral research associate, working with Prof. Mark Dickman as well as Prof. Zoltán Kis. Her research was focusing on the development of analytical methods for the characterisation of mRNA vaccines and therapeutics, and on mRNA manufacturing process development for needle-free, oral-patch based vaccine delivery.</p>
+            <p>Emma's background is in biophysics and she obtained her PhD from the University of Cambridge in 2021, where she studied novel magnetic particles for biomedical applications.</p>
+            <p>Contact Dr Emma Welbourne via <a target="_blank" rel="noopener" href="https://www.linkedin.com/in/emma-welbourne/">LinkedIn</a> or <a href="mailto:e.n.welbourne@sheffield.ac.uk">e.n.welbourne@sheffield.ac.uk</a>.</p>
+          </div>
+        </div>
+      </article>
+
+      <article class="person">
+        <div class="person-card">
+          <img src="images/Dr Prerna Bora.png" alt="Dr Prerna Bora">
+          <div class="person-details">
+            <h2>Dr Prerna Bora — Research Associate</h2>
+            <p>Dr. Prerna Bora is currently working as a post-doctoral researcher at the University of Sheffield, where she is engaged in experimental process development for mRNA-based vaccines and therapeutics. Her work involves the development and optimization of in vitro transcription (IVT) processes, with a particular focus on circular RNA (circRNA) and self-amplifying RNA. Prerna holds a Ph.D. in Molecular and Cell Biology from the Institute of Science Tokyo.</p>
+            <p>Contact Dr Prerna Bora via <a target="_blank" rel="noopener" href="http://www.linkedin.com/in/prernabora">LinkedIn</a> or <a href="mailto:p.bora@sheffield.ac.uk">p.bora@sheffield.ac.uk</a>.</p>
+          </div>
+        </div>
+      </article>
+
+      <article class="person">
+        <div class="person-card">
+          <img src="images/Dr Stuart Archer.png" alt="Dr Stuart Archer">
+          <div class="person-details">
+            <h2>Dr Stuart Archer — Senior Research Technician</h2>
+            <p>Stuart is the senior laboratory technician for the RNA Innovation Manufacturing Team, managing their equipment and laboratories in the School of Chemical, Materials and Biological Engineering at The University of Sheffield. He brings a variety of experience, including a PhD in synthetic and analytical chemistry, research into DNA intercalating theranostic probes, pharmaceutical development in a GMP environment, research administration and health and safety in industrial and academic environments.</p>
+            <p>Contact Dr Stuart Archer via <a target="_blank" rel="noopener" href="https://www.linkedin.com/in/stuart-archer-967a26b4/">LinkedIn</a> or <a href="mailto:s.a.archer@sheffield.ac.uk">s.a.archer@sheffield.ac.uk</a>.</p>
+          </div>
+        </div>
+      </article>
+
+      <article class="person">
+        <div class="person-card">
+          <img src="images/Dr Bojan Kopilovic.png" alt="Dr Bojan Kopilovic">
+          <div class="person-details">
+            <h2>Dr Bojan Kopilovic — Research Associate</h2>
+            <p>Bojan is a Postdoctoral Research Associate at the University of Sheffield in the School of Chemical, Materials and Biological Engineering, working in collaboration with the Coalition for Epidemic Preparedness Innovations (CEPI) under the supervision of Prof. Zoltán Kis.</p>
+            <p>Bojan's research focuses on the scalable production and purification of mRNA vaccines, with a strong emphasis on lipid nanoparticle (LNP) formulation and process intensification for decentralized manufacturing. He is passionate about advancing the RNA-based therapeutics field and enabling equitable access to vaccines worldwide through innovative strategies.</p>
+            <p>Contact Dr Bojan Kopilovic via <a target="_blank" rel="noopener" href="http://www.linkedin.com/in/bojan-kopilovic-017973151">LinkedIn</a> or <a href="mailto:b.kopilovic@sheffield.ac.uk">b.kopilovic@sheffield.ac.uk</a>.</p>
+          </div>
+        </div>
+      </article>
+
+      <article class="person">
+        <div class="person-card">
+          <img src="images/Dr Pramuditha Mendis.png" alt="Dr Pramuditha Mendis">
+          <div class="person-details">
+            <h2>Dr Pramuditha Mendis — Research Associate</h2>
+            <p>Pramuditha is a Postdoctoral Research Associate at the University of Sheffield in the School of Chemical, Materials and Biological Engineering. Pramuditha's background is in Chemical and Process Engineering. He obtained his PhD from the Hong Kong University of Science and Technology in 2023, where his focus was model-based optimization of pharmaceutical crystallization processes.</p>
+            <p>His research focus is quality-by-design (QbD) and techno-economic modeling of mRNA manufacturing processes for needle-free, oral-patch based vaccine delivery.</p>
+            <p>Contact Dr Pramuditha Mendis via <a target="_blank" rel="noopener" href="https://lk.linkedin.com/in/pramuditha-mendis-415b1a147">LinkedIn</a> or <a href="mailto:n.p.mendis@sheffield.ac.uk">n.p.mendis@sheffield.ac.uk</a>.</p>
+          </div>
+        </div>
+      </article>
+
+      <section>
+        <h2>Casual staff</h2>
+        <ul>
+          <li>Mahdi Ahmed – Kinetic modelling of the in vitro transcription reaction. June 2022 - Present.</li>
+          <li>Dr Jack Ledingham – Computational fluid dynamics simulations to aid the development of mRNA production processes and equipment. June 2023 - Present.</li>
+          <li>Joseph Middleton – Digitalisation of the mRNA manufacturing process. May 2023 - Present.</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>PhD Students</h2>
+        <article class="person">
+          <div class="person-card">
+            <img src="images/Shady Hamed.png" alt="Shady Hamed">
+            <div class="person-details">
+              <h2>Shady Hamed — PhD Researcher</h2>
+              <p>Shady is currently pursuing his PhD in the School of Chemical, Materials and Biological Engineering at the University of Sheffield.</p>
+              <p>Shady's research focuses on modeling mRNA vaccine production process units involving purification and drug product formulation: Chromatography, LNP formulation, and Tangential flow filtration. Shady is passionate about contributing to the mRNA vaccine project, which aims to push the boundaries of human knowledge forward and work towards eradicating more diseases.</p>
+              <p>Contact Shady via <a target="_blank" rel="noopener" href="https://www.linkedin.com/in/shady-h/">LinkedIn</a> or <a href="mailto:s.m.hamed@sheffield.ac.uk">s.m.hamed@sheffield.ac.uk</a>.</p>
+            </div>
+          </div>
+        </article>
+        <article class="person">
+          <div class="person-card">
+            <img src="images/Haitem Elmassoudi.png" alt="Haitem Elmassoudi">
+            <div class="person-details">
+              <h2>Haitem Elmassoudi — PhD Researcher</h2>
+              <p>Haitem is currently pursuing his PhD in the School of Chemical, Materials and Biological Engineering at the University of Sheffield. His research focuses on developing next-generation upstream processes for production of mRNA vaccines and therapeutics.</p>
+              <p>Contact Haitem via <a target="_blank" rel="noopener" href="https://www.linkedin.com/in/haitem-elmassoudi/">LinkedIn</a> or <a href="mailto:helmassoudi1@sheffield.ac.uk">helmassoudi1@sheffield.ac.uk</a>.</p>
+            </div>
+          </div>
+        </article>
+      </section>
+
+      <section>
+        <div class="section-heading"><h2>Alumni</h2></div>
+        <div class="at-legend">
+          <span class="at-postdoc">Postdoctoral RA</span>
+          <span class="at-ra">Research Associate</span>
+          <span class="at-phd">PhD Researcher</span>
+          <span class="at-msc">MSc Student</span>
+          <span class="at-beng">BEng / MEng</span>
+          <span class="at-surf">SURE / SURF</span>
+          <span class="at-now-legend" id="at-today-label"></span>
+        </div>
+        <div class="at-outer">
+          <div class="at-row at-axis">
+            <div class="at-lbl"></div>
+            <div class="at-trk at-years" id="at-years"></div>
+          </div>
+          <div class="at-rows" id="at-rows">
+
+            <div class="at-section-hdr">Post-doctoral Research Associates</div>
+            <div class="at-row"><div class="at-lbl">Dr Kate Loveday<a href="https://www.linkedin.com/in/kate-loveday/" target="_blank" rel="noopener" class="at-li" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg></a></div><div class="at-trk"><div class="at-bar at-postdoc" data-start="2022-02" data-end="2025-03" title="Dr Kate Loveday — mRNA vaccines process development — Feb 2022 to Mar 2025"></div></div></div>
+            <div class="at-row"><div class="at-lbl">Dr Royce Copley<a href="https://www.linkedin.com/in/roycecopley/" target="_blank" rel="noopener" class="at-li" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg></a></div><div class="at-trk"><div class="at-bar at-postdoc" data-start="2022-04" data-end="2024-01" title="Dr Royce Copley — Digitalisation of mRNA manufacturing — Apr 2022 to Jan 2024"></div></div></div>
+            <div class="at-row"><div class="at-lbl">Dr Min Tao<a href="https://www.linkedin.com/in/mintao110/" target="_blank" rel="noopener" class="at-li" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg></a></div><div class="at-trk"><div class="at-bar at-postdoc" data-start="2022-06" data-end="2024-01" title="Dr Min Tao — Gaussian Process data-driven modelling — Jun 2022 to Jan 2024"></div></div></div>
+            <div class="at-row"><div class="at-lbl">Dr Ehsan Nourafkan<a href="https://www.linkedin.com/in/ehsan-nourafkan-045204a1/" target="_blank" rel="noopener" class="at-li" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg></a></div><div class="at-trk"><div class="at-bar at-postdoc" data-start="2022-04" data-end="2025-02" title="Dr Ehsan Nourafkan — LNP formulation and TFF modelling — Apr 2022 to Feb 2025"></div></div></div>
+            <div class="at-row"><div class="at-lbl">Dr Emma Welbourne<a href="https://www.linkedin.com/in/emma-welbourne/" target="_blank" rel="noopener" class="at-li" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg></a></div><div class="at-trk"><div class="at-bar at-postdoc" data-start="2022-04" data-end="2026-04" title="Dr Emma Welbourne — Advanced analysis of mRNA medicines — Apr 2022 to Apr 2026"></div></div></div>
+
+            <div class="at-section-hdr">Research Associates</div>
+            <div class="at-row"><div class="at-lbl">James Grinham<a href="https://www.linkedin.com/in/james-grinham-77287948/" target="_blank" rel="noopener" class="at-li" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg></a></div><div class="at-trk"><div class="at-bar at-ra" data-start="2022-07" data-end="2025-03" title="James Grinham — mRNA purification — Jul 2022 to Mar 2025"></div></div></div>
+            <div class="at-row"><div class="at-lbl">Charlie Kenyon<a href="https://www.linkedin.com/in/charlie-kenyon/" target="_blank" rel="noopener" class="at-li" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg></a></div><div class="at-trk"><div class="at-bar at-ra" data-start="2023-02" data-end="2024-09" title="Charlie Kenyon — mRNA vaccines process development — Feb 2023 to Sep 2024"></div></div></div>
+            <div class="at-row"><div class="at-lbl">Lily Brewster<a href="https://www.linkedin.com/in/lily-brewster-2002/" target="_blank" rel="noopener" class="at-li" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg></a></div><div class="at-trk"><div class="at-bar at-ra" data-start="2025-03" data-end="2026-02" title="Lily Brewster — mRNA Vaccine Manufacturing Process Development — Mar 2025 to Feb 2026"></div></div></div>
+
+            <div class="at-section-hdr">PhD Researchers</div>
+            <div class="at-row"><div class="at-lbl">Jixin Qu<a href="https://www.linkedin.com/in/jixin-qu-960b201a5/" target="_blank" rel="noopener" class="at-li" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg></a></div><div class="at-trk"><div class="at-bar at-phd" data-start="2022-06" data-end="2025-01" title="Jixin Qu — Downstream mRNA purification processes — Jun 2022 to Jan 2025"></div></div></div>
+            <div class="at-row"><div class="at-lbl">Zidi Yang<a href="https://www.linkedin.com/in/zidi-yang-13b307245/" target="_blank" rel="noopener" class="at-li" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg></a></div><div class="at-trk"><div class="at-bar at-phd" data-start="2022-12" data-end="2025-08" title="Zidi Yang — RNA formulation LNP processes — Dec 2022 to Aug 2025"></div></div></div>
+            <div class="at-row"><div class="at-lbl">George W Muir<a href="https://www.linkedin.com/in/george-muir-meng/" target="_blank" rel="noopener" class="at-li" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg></a></div><div class="at-trk"><div class="at-bar at-phd" data-start="2022-09" data-end="2026-05" title="George William Muir — Capillary gel electrophoresis — Sep 2022 to May 2026"></div></div></div>
+
+            <div class="at-section-hdr">MSc Research Students</div>
+            <div class="at-row"><div class="at-lbl">MSc 21&#8211;22 (7)</div><div class="at-trk"><div class="at-bar at-msc" data-start="2021-09" data-end="2022-07" title="7 students: Wu, Clarke, Xu, Zhou, Day, Jiang, Chen — Sep 2021 to Jul 2022"></div></div></div>
+            <div class="at-row"><div class="at-lbl">MSc 22&#8211;23 (1)</div><div class="at-trk"><div class="at-bar at-msc" data-start="2022-09" data-end="2023-07" title="1 student: Erxin Zhou — Sep 2022 to Jul 2023"></div></div></div>
+            <div class="at-row"><div class="at-lbl">MSc 23&#8211;24 (5)</div><div class="at-trk"><div class="at-bar at-msc" data-start="2023-09" data-end="2024-07" title="5 students: Desai, Wu, Ke Xu, Yinhuang Xu, Yingjie Xu — Sep 2023 to Jul 2024"></div></div></div>
+            <div class="at-row"><div class="at-lbl">MSc 24&#8211;25 (3)</div><div class="at-trk"><div class="at-bar at-msc" data-start="2024-09" data-end="2025-07" title="3 students: McPhail, Hadland, Tavares — Sep 2024 to Jul 2025"></div></div></div>
+
+            <div class="at-section-hdr">BEng / MEng Researchers</div>
+            <div class="at-row"><div class="at-lbl">BEng/MEng 21&#8211;22</div><div class="at-trk"><div class="at-bar at-beng" data-start="2021-09" data-end="2022-07" title="1 student: Oisín McLaughlin — Sep 2021 to Jul 2022"></div></div></div>
+            <div class="at-row"><div class="at-lbl">BEng/MEng 22&#8211;23</div><div class="at-trk"><div class="at-bar at-beng" data-start="2022-09" data-end="2023-07" title="2 students: Joe Smith, Ioanna Kalospyrou — Sep 2022 to Jul 2023"></div></div></div>
+            <div class="at-row"><div class="at-lbl">BEng/MEng 23&#8211;24</div><div class="at-trk"><div class="at-bar at-beng" data-start="2023-09" data-end="2024-07" title="3 students: Hamed, Gusha, Aiach — Sep 2023 to Jul 2024"></div></div></div>
+            <div class="at-row"><div class="at-lbl">BEng/MEng 24&#8211;25</div><div class="at-trk"><div class="at-bar at-beng" data-start="2024-09" data-end="2025-07" title="3 students: Gulzar, Dahir, Moura Cardoso — Sep 2024 to Jul 2025"></div></div></div>
+
+            <div class="at-section-hdr">SURE / SURF Interns</div>
+            <div class="at-row"><div class="at-lbl">SURE/SURF '22 (4)</div><div class="at-trk"><div class="at-bar at-surf" data-start="2022-06" data-end="2022-09" title="4 interns: Kalospyrou, Hardy, Moura Cardoso, Cordiner — Summer 2022"></div></div></div>
+            <div class="at-row"><div class="at-lbl">SURE/SURF '23 (2)</div><div class="at-trk"><div class="at-bar at-surf" data-start="2023-06" data-end="2023-09" title="2 interns: Jamil, Manrique Suarez — Summer 2023"></div></div></div>
+            <div class="at-row"><div class="at-lbl">SURE/SURF '24 (2)</div><div class="at-trk"><div class="at-bar at-surf" data-start="2024-06" data-end="2024-09" title="2 interns: Jafree, Dahir — Summer 2024"></div></div></div>
+
+            <div class="at-today" id="at-today"></div>
+          </div>
+        </div>
+
+        <details class="alumni-details">
+          <summary>View full alumni list</summary>
+          <h3>Post-doctoral research associates:</h3>
+          <ul>
+            <li>Dr Min Tao – Gaussian Process-based data-driven modelling. June 2022 – January 2024. <a target="_blank" rel="noopener" href="https://www.linkedin.com/in/mintao110/">LinkedIn</a></li>
+            <li>Dr Royce Copley – Digitalisation of the mRNA manufacturing process. April 2022 – January 2024. <a target="_blank" rel="noopener" href="https://www.linkedin.com/in/roycecopley/">LinkedIn</a></li>
+            <li>Dr Ehsan Nourafkan – LNP formulation and modelling of the TFF process. April 2022 – February 2025. <a target="_blank" rel="noopener" href="https://www.linkedin.com/in/ehsan-nourafkan-045204a1/">LinkedIn</a></li>
+            <li>Dr Kate Loveday – mRNA vaccines production process development. February 2022 – March 2025. <a target="_blank" rel="noopener" href="https://www.linkedin.com/in/kate-loveday/">LinkedIn</a></li>
+            <li>Dr Emma Welbourne – Advanced analysis of mRNA medicines. April 2022 – April 2026. <a target="_blank" rel="noopener" href="https://www.linkedin.com/in/emma-welbourne/">LinkedIn</a></li>
+          </ul>
+          <h3>Research associates:</h3>
+          <ul>
+            <li>Charlie Kenyon – mRNA vaccines production process development. February 2023 – September 2024. <a target="_blank" rel="noopener" href="https://www.linkedin.com/in/charlie-kenyon/">LinkedIn</a></li>
+            <li>James Grinham – mRNA purification. July 2022 – March 2025. <a target="_blank" rel="noopener" href="https://www.linkedin.com/in/james-grinham-77287948/">LinkedIn</a></li>
+            <li>Lily Brewster – mRNA Vaccine Manufacturing Process Development. Mar 2025 – Feb 2026. <a target="_blank" rel="noopener" href="https://www.linkedin.com/in/lily-brewster-2002/">LinkedIn</a></li>
+          </ul>
+          <h3>PhD students:</h3>
+          <ul>
+            <li>Jixin Qu – Downstream mRNA purification processes development. June 2022 – January 2025. <a target="_blank" rel="noopener" href="https://www.linkedin.com/in/jixin-qu-960b201a5/">LinkedIn</a></li>
+            <li>Zidi Yang – RNA formulation LNP processes development. Dec 2022 – August 2025. <a target="_blank" rel="noopener" href="https://www.linkedin.com/in/zidi-yang-13b307245/">LinkedIn</a></li>
+            <li>George William Muir – Capillary gel electrophoresis and analytical electro-separation. September 2022 – May 2026. <a target="_blank" rel="noopener" href="https://www.linkedin.com/in/george-muir-meng/">LinkedIn</a></li>
+          </ul>
+          <h3>MSc Research Students:</h3>
+          <ul>
+            <li>Yuchen Wu, Lee Clarke, Zihan Xu, Erxin Zhou, John Day, Yutong Jiang, Cheng Chen – 2021–2022.</li>
+            <li>Erxin Zhou – 2022–2023.</li>
+            <li>Mihir Umesh Desai, Yiqing Wu, Ke Xu, Yinhuang Xu, Yingjie Xu – 2023–2024.</li>
+            <li>Rhys W McPhail, Hege Hadland, Arthur GB Tavares – 2024–2025.</li>
+          </ul>
+          <h3>BEng and MEng Research Students:</h3>
+          <ul>
+            <li>Oisín McLaughlin – 2021–2022.</li>
+            <li>Joe Smith, Ioanna (Ioni) Kalospyrou – 2022–2023.</li>
+            <li>Shady Hamed, Forbes T Gusha, Obai Aiach – 2023–2024.</li>
+            <li>Samira N Gulzar, Natasha Dahir, Ricardo F Moura Cardoso – 2024–2025.</li>
+          </ul>
+          <h3>SURE / SURF and summer interns:</h3>
+          <ul>
+            <li>Ioanna Kalospyrou, Angus Hardy, Ricardo Moura Cardoso, Abigail Cordiner – 2022.</li>
+            <li>Muhammad T Jamil, David Manrique Suarez – 2023.</li>
+            <li>Fuaad Jafree, Natasha Dahir – 2024.</li>
+          </ul>
+        </details>
+      </section>
+    </section>
+  </main>
+
+  <script>
+  (function () {
+        /* ── 2. Alumni timeline positioning ────────────────────────── */
+    const LBL  = (document.querySelector(".at-lbl") || {}).offsetWidth || 175;
+    const MON  = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+    function pd(s) { const [y,m]=s.split('-').map(Number); return new Date(y,m-1,1); }
+    function md(a,b){ return (b.getFullYear()-a.getFullYear())*12+(b.getMonth()-a.getMonth()); }
+
+    const START = new Date(2021,0,1);
+    const now   = new Date();
+    const bars  = Array.from(document.querySelectorAll('.at-bar[data-start]'));
+
+    let latest = new Date(2026,11,1);
+    bars.forEach(b => { if(b.dataset.end){ const d=pd(b.dataset.end); if(d>latest) latest=d; }});
+    const minE = new Date(Math.max(
+      new Date(latest.getFullYear(), latest.getMonth()+6),
+      new Date(now.getFullYear(),    now.getMonth()+12)
+    ));
+    const END    = new Date(minE.getFullYear()+(minE.getMonth()>0?1:0),0,1);
+    const MONTHS = md(START,END);
+    function pct(d){ return md(START,d)/MONTHS*100; }
+
+    bars.forEach(b => {
+      const s = pd(b.dataset.start);
+      const e = b.dataset.end ? pd(b.dataset.end) : new Date(s.getFullYear(), s.getMonth()+12);
+      b.style.left  = Math.max(0, pct(s)).toFixed(3)+'%';
+      b.style.width = Math.max(0.3, pct(e)-pct(s)).toFixed(3)+'%';
+    });
+
+    const yEl = document.getElementById('at-years');
+    if (yEl) {
+      yEl.innerHTML='';
+      const sy=START.getFullYear(), ey=END.getFullYear();
+      for(let y=sy;y<=ey;y++){
+        const sp=document.createElement('span');
+        sp.textContent=y; sp.style.left=pct(new Date(y,0,1)).toFixed(2)+'%';
+        yEl.appendChild(sp);
+      }
+      const gs=(100/(ey-sy)).toFixed(3)+'% 100%';
+      document.querySelectorAll('.at-trk').forEach(t=>{ if(!t.classList.contains('at-years')) t.style.backgroundSize=gs; });
+    }
+
+    const marker = document.getElementById('at-today');
+    if (marker) {
+      marker.style.left='calc('+LBL+'px + (100% - '+LBL+'px) * '+(pct(now)/100).toFixed(5)+')';
+    }
+    const todayLbl = document.getElementById('at-today-label');
+    if (todayLbl) todayLbl.textContent = MON[now.getMonth()]+' '+now.getFullYear();
+
+  })();
+  </script>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <a href="index.html" class="footer-logo-wrap">
+        <img src="images/RNA_Mint_Logo_9.png" alt="RNA MINT" class="footer-logo">
+      </a>
+      <div class="footer-center">
+        <p class="footer-uos-name">University of Sheffield</p>
+        <p class="footer-uos-dept">School of Chemical, Materials and Biological Engineering</p>
+      </div>
+      <img src="images/University of Sheffield.png" alt="University of Sheffield" class="uos-logo">
+    </div>
+  </footer>
+</body>
+</html>

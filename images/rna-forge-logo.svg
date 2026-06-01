@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 255 285" role="img" aria-label="RNA Forge">
+  <!-- R — scalloped blob (12-tooth star polygon) -->
+  <polygon fill="#4BBCE9"
+    points="68,16 79.7,27.5 95.5,23.4 99.8,39.2 115.6,43.5 111.5,59.3 123,71 111.5,82.7 115.6,98.5 99.8,102.8 95.5,118.6 79.7,114.5 68,126 56.3,114.5 40.5,118.6 36.2,102.8 20.4,98.5 24.5,82.7 13,71 24.5,59.3 20.4,43.5 36.2,39.2 40.5,23.4 56.3,27.5"/>
+  <text x="68" y="71" text-anchor="middle" dominant-baseline="central"
+        font-size="56" font-weight="900" fill="#111"
+        font-family="'Arial Black', Arial, sans-serif">R</text>
+
+  <!-- Bond R → N -->
+  <line x1="90" y1="115" x2="95" y2="136" stroke="#111" stroke-width="6" stroke-linecap="round"/>
+
+  <!-- N — pentagon (pointed top, cx=112 cy=182 r=46) -->
+  <polygon fill="#6CBF5B"
+    points="112,136 155.7,167.8 138.7,218.2 85.3,218.2 68.3,167.8"/>
+  <text x="112" y="182" text-anchor="middle" dominant-baseline="central"
+        font-size="50" font-weight="900" fill="#111"
+        font-family="'Arial Black', Arial, sans-serif">N</text>
+
+  <!-- Bond N → A -->
+  <line x1="155" y1="164" x2="168" y2="112" stroke="#111" stroke-width="6" stroke-linecap="round"/>
+
+  <!-- A — square (x=166 y=52 w=68 h=64) -->
+  <rect x="166" y="52" width="68" height="64" rx="5" fill="#8DC93F"/>
+  <text x="200" y="84" text-anchor="middle" dominant-baseline="central"
+        font-size="50" font-weight="900" fill="#111"
+        font-family="'Arial Black', Arial, sans-serif">A</text>
+
+  <!-- Bond N → Forge (below) -->
+  <line x1="112" y1="218" x2="112" y2="236" stroke="#111" stroke-width="6" stroke-linecap="round"/>
+
+  <!-- Forge text -->
+  <text x="127" y="269" text-anchor="middle"
+        font-size="46" font-weight="700" fill="#111"
+        font-family="Arial, Helvetica, sans-serif">Forge</text>
+</svg>
