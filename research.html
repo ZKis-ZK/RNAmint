@@ -640,7 +640,9 @@
         yearsEl.innerHTML = '';
         const startY = TL_START.getFullYear();
         const endY   = TL_END.getFullYear();
+        const step = window.innerWidth < 480 ? 4 : window.innerWidth < 650 ? 2 : 1;
         for (let y = startY; y <= endY; y++) {
+          if ((y - startY) % step !== 0) continue;
           const sp  = document.createElement('span');
           sp.textContent = y;
           sp.style.left  = toPct(new Date(y, 0, 1)).toFixed(2) + '%';

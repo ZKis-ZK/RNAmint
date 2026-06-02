@@ -466,7 +466,9 @@
     if (yEl) {
       yEl.innerHTML='';
       const sy=START.getFullYear(), ey=END.getFullYear();
+      const step=window.innerWidth<480?4:window.innerWidth<650?2:1;
       for(let y=sy;y<=ey;y++){
+        if((y-sy)%step!==0) continue;
         const sp=document.createElement('span');
         sp.textContent=y; sp.style.left=pct(new Date(y,0,1)).toFixed(2)+'%';
         yEl.appendChild(sp);
