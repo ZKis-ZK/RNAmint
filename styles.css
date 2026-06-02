@@ -574,7 +574,7 @@ li     { margin: 0.45rem 0; color: var(--muted-strong); }
 /* ── Funders section ─────────────────────────────────────────── */
 .funders-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
   gap: 1.25rem 1.5rem;
   margin-top: 1.25rem;
   padding: 1.5rem 2rem;
