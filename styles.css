@@ -610,8 +610,8 @@ li     { margin: 0.45rem 0; color: var(--muted-strong); }
 /* DHSC — height reduced 30% from 140px */
 .funders-grid .funder-logo:nth-child(2) { flex: 0 0 210px; height: 98px; padding: 0; }
 
-/* FCDO — doubled: larger container, no padding */
-.funders-grid .funder-logo:nth-child(3) { flex: 0 0 260px; height: 160px; padding: 4px; }
+/* FCDO — matches CEPI container height, object-fit:cover crops sides to fill */
+.funders-grid .funder-logo:nth-child(3) { flex: 0 0 190px; height: 110px; padding: 0; object-fit: cover; object-position: center; }
 
 @media (max-width: 700px) {
   .funder-logo { flex: 0 0 140px; height: 80px; }
