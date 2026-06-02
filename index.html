@@ -10,6 +10,83 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
+  <style>
+    /* ── Key highlights & awards ────────────────────────────── */
+    .awards-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+      margin-top: 1.25rem;
+    }
+    .award-card {
+      border-radius: var(--radius);
+      overflow: hidden;
+      border: 1px solid var(--line);
+      background: var(--surface);
+      box-shadow: var(--shadow-sm);
+      cursor: pointer;
+      transition: box-shadow .25s, transform .25s;
+    }
+    .award-card:hover { box-shadow: var(--shadow); transform: translateY(-3px); }
+    .award-face {
+      height: 185px;
+      background-size: cover;
+      background-position: center top;
+      position: relative;
+    }
+    .award-face-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(15,26,58,.88) 45%, transparent 100%);
+      display: flex; flex-direction: column;
+      justify-content: flex-end;
+      padding: .9rem 1rem .85rem;
+      gap: .15rem;
+    }
+    .award-tag {
+      font-size: .68rem; font-weight: 800;
+      text-transform: uppercase; letter-spacing: .06em;
+      color: var(--brand);
+    }
+    .award-title {
+      margin: 0; font-size: .92rem; font-weight: 800;
+      color: #fff; line-height: 1.2;
+    }
+    .award-hint {
+      font-size: .62rem; color: rgba(255,255,255,.55);
+      font-weight: 600; margin-top: .2rem;
+      transition: color .2s;
+    }
+    .award-hint::after { content: ' ↓'; display: inline-block; transition: transform .3s; }
+    .award-card.open .award-hint::after { transform: rotate(180deg); }
+    .award-card.open .award-hint { color: rgba(255,255,255,.8); }
+    /* Expandable body */
+    .award-body {
+      max-height: 0; overflow: hidden;
+      transition: max-height .6s cubic-bezier(.22,.61,.36,1);
+      padding: 0 1.1rem;
+    }
+    .award-card.open .award-body { max-height: 700px; padding: 1.1rem; }
+    .award-body p { margin: 0 0 .75rem; font-size: .88rem; line-height: 1.6; }
+    .award-gallery {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+      gap: .5rem; margin-bottom: .75rem;
+    }
+    .award-gallery img {
+      width: 100%; height: 120px; object-fit: cover;
+      border-radius: var(--radius-sm);
+      transition: transform .3s;
+    }
+    .award-gallery img:hover { transform: scale(1.03); }
+    .award-link {
+      display: inline-flex; align-items: center; gap: .3rem;
+      font-size: .82rem; font-weight: 700;
+      color: var(--brand-deep); text-decoration: none;
+    }
+    .award-link:hover { color: var(--brand); }
+    @media (max-width: 700px) {
+      .awards-grid { grid-template-columns: 1fr; }
+    }
+  </style>
   <!-- SEO: canonical & Open Graph -->
   <link rel="canonical" href="https://rnamint.com/">
   <meta property="og:type"        content="website">
@@ -111,6 +188,73 @@
       </div>
     </section>
 
+    <!-- Key highlights and awards -->
+    <section>
+      <div class="section-heading">
+        <p class="eyebrow">Recognition</p>
+        <h2>Key highlights and awards</h2>
+        <p>Click any card to expand.</p>
+      </div>
+      <div class="awards-grid">
+
+        <!-- Nobel laureates -->
+        <div class="award-card">
+          <div class="award-face" style="background-image:url('images/awards/nobel_laureates.webp')">
+            <div class="award-face-overlay">
+              <span class="award-tag">Nobel Laureates</span>
+              <h3 class="award-title">With Karikó &amp; Weissman</h3>
+              <span class="award-hint">Click to expand</span>
+            </div>
+          </div>
+          <div class="award-body">
+            <p>Prof Zoltán Kis with Nobel Prize in Physiology or Medicine 2023 laureates <strong>Prof Katalin Karikó</strong> and <strong>Prof Drew Weissman</strong>, whose foundational mRNA modification research made modern mRNA vaccines and therapeutics possible.</p>
+            <div class="award-gallery">
+              <img src="images/awards/nobel_laureates.webp" alt="With Nobel laureates Karikó and Weissman">
+            </div>
+          </div>
+        </div>
+
+        <!-- IChemE 2024 -->
+        <div class="award-card">
+          <div class="award-face" style="background-image:url('images/awards/icheme_zk_2024.webp')">
+            <div class="award-face-overlay">
+              <span class="award-tag">🏆 IChemE Global Award</span>
+              <h3 class="award-title">Biopharma Award 2024</h3>
+              <span class="award-hint">Click to expand</span>
+            </div>
+          </div>
+          <div class="award-body">
+            <p>RNA MINT won the <strong>IChemE Global Biopharma Award 2024</strong> for <em>"Innovating and Digitalising mRNA Vaccine and Therapeutics Production Platform Processes"</em> at the University of Sheffield.</p>
+            <div class="award-gallery">
+              <img src="images/awards/icheme_zk_2024.webp" alt="Receiving IChemE 2024 Biopharma Award">
+              <img src="images/awards/icheme_group_2024.webp" alt="IChemE 2024 all award winners">
+            </div>
+            <a href="https://www.icheme.org/about-us/news-releases/icheme-announces-2024-global-award-winners/" target="_blank" rel="noopener" class="award-link">View IChemE 2024 announcement →</a>
+          </div>
+        </div>
+
+        <!-- IChemE 2025 -->
+        <div class="award-card">
+          <div class="award-face" style="background-image:url('images/awards/icheme_zk_2025.webp')">
+            <div class="award-face-overlay">
+              <span class="award-tag">🏆 IChemE Global Award</span>
+              <h3 class="award-title">Biopharma Award 2025</h3>
+              <span class="award-hint">Click to expand</span>
+            </div>
+          </div>
+          <div class="award-body">
+            <p>RNA MINT retained the <strong>IChemE Global Biopharma Award</strong> in 2025 — winning the prestigious prize for the second consecutive year, recognising continued excellence in RNA manufacturing innovation.</p>
+            <div class="award-gallery">
+              <img src="images/awards/icheme_zk_2025.webp" alt="Receiving IChemE 2025 Biopharma Award">
+              <img src="images/awards/icheme_all_2025.webp" alt="IChemE 2025 all award winners">
+            </div>
+            <a href="https://www.icheme.org/about-us/news-releases/icheme-announces-2025-global-award-winners/" target="_blank" rel="noopener" class="award-link">View IChemE 2025 announcement →</a>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
     <section class="gallery">
       <div class="section-heading">
         <p class="eyebrow">In the lab</p>
@@ -145,6 +289,18 @@
     </section>
 
   </main>
+
+  <!-- Awards expand/collapse -->
+  <script>
+    document.querySelectorAll('.award-card').forEach(card => {
+      card.addEventListener('click', function(e) {
+        if (e.target.tagName === 'A') return; // allow link clicks
+        const wasOpen = this.classList.contains('open');
+        document.querySelectorAll('.award-card').forEach(c => c.classList.remove('open'));
+        if (!wasOpen) this.classList.add('open');
+      });
+    });
+  </script>
 
   <!-- Lightbox -->
   <div id="lightbox" class="lightbox" role="dialog" aria-modal="true" aria-label="Photo viewer">
