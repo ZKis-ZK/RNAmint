@@ -586,13 +586,15 @@ li     { margin: 0.45rem 0; color: var(--muted-strong); }
   box-shadow: var(--shadow-sm);
 }
 
-/* Fixed-width flex items — last row centres automatically */
+/* All logos: same container size — padding controls how large the image appears */
 .funder-logo {
   display: block;
   flex: 0 0 190px;
   height: 110px;
   object-fit: contain;
   object-position: center;
+  box-sizing: border-box;
+  padding: 8px 12px;       /* default: moderate padding */
   border-radius: 0;
   transition: transform .2s ease, opacity .2s ease;
 }
@@ -601,6 +603,13 @@ li     { margin: 0.45rem 0; color: var(--muted-strong); }
   transform: translateY(-2px);
   opacity: 0.8;
 }
+
+/* CEPI is 3.4:1 wide — large horizontal padding shrinks its apparent size */
+.funders-grid .funder-logo:nth-child(1) { padding: 18px 38px; }
+
+/* DHSC and FCDO are nearly square — minimal padding makes them appear larger */
+.funders-grid .funder-logo:nth-child(2) { padding: 6px 10px; }
+.funders-grid .funder-logo:nth-child(3) { padding: 6px 10px; }
 
 @media (max-width: 700px) {
   .funder-logo { flex: 0 0 140px; height: 80px; }
