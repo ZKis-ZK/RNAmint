@@ -613,6 +613,12 @@ li     { margin: 0.45rem 0; color: var(--muted-strong); }
 /* FCDO — matches CEPI container height, object-fit:cover crops sides to fill */
 .funders-grid .funder-logo:nth-child(3) { flex: 0 0 190px; height: 110px; padding: 0; object-fit: cover; object-position: center; }
 
+/* Wellcome Leap, BBSRC, Innovate UK, EPSRC — 20% taller (110px × 1.2 = 132px) */
+.funders-grid .funder-logo:nth-child(4),
+.funders-grid .funder-logo:nth-child(5),
+.funders-grid .funder-logo:nth-child(6),
+.funders-grid .funder-logo:nth-child(7) { height: 132px; }
+
 @media (max-width: 700px) {
   .funder-logo { flex: 0 0 140px; height: 80px; }
 }
