@@ -573,26 +573,26 @@ li     { margin: 0.45rem 0; color: var(--muted-strong); }
 
 /* ── Funders section ─────────────────────────────────────────── */
 .funders-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-  gap: 1.25rem 1.5rem;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 1.25rem 1.75rem;
   margin-top: 1.25rem;
   padding: 1.5rem 2rem;
   background: var(--surface);
   border: 1px solid var(--line);
   border-radius: var(--radius);
   box-shadow: var(--shadow-sm);
-  align-items: center;
-  justify-items: center;
 }
 
-/* Uniform bounding box for all logos — same cell size ensures column alignment */
+/* Fixed-width flex items — last row centres automatically */
 .funder-logo {
   display: block;
-  width: 100%;
+  flex: 0 0 190px;
   height: 110px;
   object-fit: contain;
-  object-position: center center;
+  object-position: center;
   border-radius: 0;
   transition: transform .2s ease, opacity .2s ease;
 }
@@ -603,12 +603,7 @@ li     { margin: 0.45rem 0; color: var(--muted-strong); }
 }
 
 @media (max-width: 700px) {
-  .funders-grid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 1.25rem;
-    padding: 1.5rem;
-  }
-  .funder-logo { height: 80px; }
+  .funder-logo { flex: 0 0 140px; height: 80px; }
 }
 
 /* ── Grants table ────────────────────────────────────────────── */
