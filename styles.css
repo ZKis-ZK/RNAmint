@@ -577,9 +577,9 @@ li     { margin: 0.45rem 0; color: var(--muted-strong); }
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
-  gap: 1.25rem 1.75rem;
+  gap: 0.75rem 1.25rem;
   margin-top: 1.25rem;
-  padding: 1.5rem 2rem;
+  padding: 0.85rem 1.5rem;
   background: var(--surface);
   border: 1px solid var(--line);
   border-radius: var(--radius);
