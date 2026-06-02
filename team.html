@@ -110,10 +110,11 @@
       background: #dc2626; z-index: 6; pointer-events: none;
     }
     .at-today::before {
-      content: 'Today'; position: absolute; bottom: -18px; top: auto; left: 50%;
+      content: 'Today'; position: absolute; top: 2px; bottom: auto; left: 50%;
       transform: translateX(-50%);
       font-size: .62rem; font-weight: 800; color: #dc2626;
       white-space: nowrap; text-transform: uppercase; letter-spacing: .04em;
+      background: rgba(255,255,255,.85); border-radius: 3px; padding: 0 3px;
     }
     .at-legend {
       display: flex; flex-wrap: wrap; gap: 1.1rem; margin-bottom: .75rem;
