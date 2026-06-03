@@ -181,6 +181,8 @@
     .tl-bar.pi  { background: var(--brand-deep); }
     .tl-bar.coi { background: var(--brand); opacity: .82; }
     .tl-bar.coi:hover { opacity: 1; }
+    .tl-bar.coa { background: #7b9ab5; opacity: .85; }
+    .tl-bar.coa:hover { opacity: 1; }
 
     /* Today marker */
     .tl-rows { position: relative; padding-bottom: 28px; }
@@ -222,6 +224,7 @@
     .tl-legend span::before { content: '▬'; margin-right: 5px; }
     .tl-pi::before  { color: var(--brand-deep) !important; }
     .tl-coi::before { color: var(--brand) !important; }
+    .tl-coa::before { color: #7b9ab5 !important; }
     .tl-now::before { content: '│' !important; color: #dc2626 !important; }
 
     /* ── Timeline bar popup ─────────────────────────────────── */
@@ -368,13 +371,14 @@
 
     <!-- Grant timeline -->
     <section>
-      <div class="section-heading">
+      <div class="section-heading" style="max-width:none;">
         <h2>Research funding timeline</h2>
         <p>All grants spanning their funding period. Click any bar to expand details and open links.</p>
       </div>
       <div class="tl-legend">
         <span class="tl-pi">Principal Investigator</span>
         <span class="tl-coi">Co-Investigator</span>
+        <span class="tl-coa">Co-applicant</span>
         <span class="tl-now" id="tl-today-label"></span>
       </div>
       <div class="tl-outer">
@@ -396,7 +400,7 @@
 
           <div class="tl-row">
             <div class="tl-lbl">UKRI</div>
-            <div class="tl-trk"><div class="tl-bar coi" data-start="2020-07" data-end="2022-01"
+            <div class="tl-trk"><div class="tl-bar coa" data-start="2020-07" data-end="2022-01"
               title="Meeting the UK demand for COVID-19 vaccines — UKRI — Co-applicant — £445,000 — Jul 2020 → Jan 2022"
               data-link="https://gtr.ukri.org/projects?ref=EP%2FV01479X%2F1">COVID-19</div></div>
           </div>
@@ -410,7 +414,7 @@
 
           <div class="tl-row">
             <div class="tl-lbl">Wellcome Trust</div>
-            <div class="tl-trk"><div class="tl-bar coi" data-start="2020-09" data-end="2022-08"
+            <div class="tl-trk"><div class="tl-bar coa" data-start="2020-09" data-end="2022-08"
               title="Live-attenuated whole parasite malaria vaccine — Wellcome Trust — Co-applicant — £727,000 — Sep 2020 → Aug 2022"
               data-link="https://wellcome.org/research-funding/funding-portfolio/funded-grants/pathway-live-attenuated-whole-parasite-malaria-0">Malaria vaccine</div></div>
           </div>
@@ -440,7 +444,7 @@
             <div class="tl-lbl">Innovate UK</div>
             <div class="tl-trk"><div class="tl-bar pi"  data-start="2023-10" data-end="2026-03"
               title="Automated RNA process-in-a-box for outbreak response — Innovate UK — PI — £2M — Oct 2023 → Mar 2026"
-              data-link="https://gtr.ukri.org/projects?ref=BB%2FY007514%2F1">RNA process-in-box</div></div>
+              data-link="https://gtr.ukri.org/projects?ref=10085632">RNA process-in-box</div></div>
           </div>
 
           <div class="tl-row">
