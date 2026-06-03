@@ -139,6 +139,28 @@
 
     /* ═══ FUN: KIS Easter egg (remove this block to revert) ═══ */
     #zk-card { position: relative; }
+
+    /* photo col: image + badge stacked */
+    .zk-photo-col {
+      display: flex; flex-direction: column;
+      align-items: center; gap: .45rem;
+      align-self: flex-start; flex-shrink: 0;
+    }
+    .zk-photo-col img {
+      width: 200px; min-width: 200px; height: auto;
+      border: 1px solid var(--line);
+      border-radius: var(--radius-sm);
+      background: var(--surface-soft);
+    }
+    /* On desktop: badge hidden until hover, shown below photo */
+    .zk-photo-col .kis-badge { margin-bottom: 0; }
+    /* On phone: hide the photo-col badge; it shows via person-details position */
+    @media (max-width: 700px) {
+      .zk-photo-col { align-self: auto; }
+      .zk-photo-col img { width: 100%; max-width: 260px; min-width: unset; }
+      .zk-photo-col .kis-badge { opacity: .75 !important; transform: none !important; }
+    }
+
     .kis-badge {
       display: inline-flex; align-items: center; gap: .35rem;
       padding: .25rem .75rem;
@@ -203,14 +225,16 @@
       <article class="person">
         <!-- ═══ FUN: KIS card (remove id and .kis-badge to revert) ═══ -->
         <div class="person-card" id="zk-card">
-          <img src="images/Professor Zoltan Kis.webp" alt="Professor Zoltán Kis">
-          <div class="person-details">
-            <!-- KIS badge -->
+          <!-- photo column: image + KIS badge below on desktop -->
+          <div class="zk-photo-col">
+            <img src="images/Professor Zoltan Kis.webp" alt="Professor Zoltán Kis">
             <div class="kis-badge" aria-label="KIS principle" title="KIS = Keep It Simple">
               <span class="kis-emoji">✨</span>
               <span>KIS</span>
               <span style="opacity:.6;font-weight:600">= Keep It Simple</span>
             </div>
+          </div>
+          <div class="person-details">
             <h2>Professor Zoltán Kis — Team Leader</h2>
             <p>Zoltán Kis is a Professor of Bioprocess Engineering at the School of Chemical, Materials and Biological Engineering at the University of Sheffield, and an Honorary Lecturer at the Department of Chemical Engineering, Imperial College London.</p>
             <p>Zoltán is leading a multidisciplinary team that is innovating and digitalising RNA vaccine and therapeutics production platform technologies. His work is addressing the challenges of producing large volumes of RNA-based vaccines and therapeutics, rapidly, at high quality and at low cost in a disease-agnostic manner.</p>
