@@ -26,26 +26,42 @@
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
-    "@type": "ResearchOrganization",
-    "name": "RNA Manufacturing Innovation Team (RNA MINT)",
-    "alternateName": "RNA MINT",
-    "url": "https://rnamint.com",
-    "logo": "https://rnamint.com/images/RNA_Mint_Logo_8.webp",
-    "description": "RNA MINT develops digitalised RNA manufacturing platform processes for rapid, high-quality vaccine and therapeutic production.",
-    "parentOrganization": {
-      "@type": "CollegeOrUniversity",
-      "name": "University of Sheffield",
-      "url": "https://www.sheffield.ac.uk"
-    },
-    "founder": {
-      "@type": "Person",
-      "name": "Professor Zoltán Kis",
-      "jobTitle": "Professor of Bioprocess Engineering",
-      "url": "https://www.sheffield.ac.uk/cmbe/people/cbe-academic-staff/zoltan-kis"
-    },
-    "sameAs": [
-      "https://www.linkedin.com/in/zoltan-kis-phd/",
-      "https://scholar.google.com/citations?user=uciPYzUAAAAJ"
+    "@graph": [
+      {
+        "@type": "ContactPage",
+        "@id": "https://rnamint.com/contact.html",
+        "url": "https://rnamint.com/contact.html",
+        "name": "Contact | RNA Manufacturing Innovation Team",
+        "isPartOf": { "@id": "https://rnamint.com/#website" },
+        "about": { "@id": "https://rnamint.com/#organization" },
+        "description": "Contact RNA MINT for collaborations, media enquiries, vacancies and student opportunities at the University of Sheffield.",
+        "breadcrumb": {
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            { "@type": "ListItem", "position": 1, "name": "Home",    "item": "https://rnamint.com/" },
+            { "@type": "ListItem", "position": 2, "name": "Contact", "item": "https://rnamint.com/contact.html" }
+          ]
+        }
+      },
+      {
+        "@type": ["Organization", "ResearchOrganization"],
+        "@id": "https://rnamint.com/#organization",
+        "name": "RNA Manufacturing Innovation Team",
+        "alternateName": "RNA MINT",
+        "url": "https://rnamint.com/",
+        "contactPoint": {
+          "@type": "ContactPoint",
+          "contactType": "general enquiries",
+          "email": "z.kis@sheffield.ac.uk",
+          "url": "https://rnamint.com/contact.html"
+        }
+      },
+      {
+        "@type": "WebSite",
+        "@id": "https://rnamint.com/#website",
+        "url": "https://rnamint.com/",
+        "name": "RNA MINT"
+      }
     ]
   }
   </script>

@@ -129,26 +129,82 @@
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
-    "@type": "ResearchOrganization",
-    "name": "RNA Manufacturing Innovation Team (RNA MINT)",
-    "alternateName": "RNA MINT",
-    "url": "https://rnamint.com",
-    "logo": "https://rnamint.com/images/RNA_Mint_Logo_8.webp",
-    "description": "RNA MINT develops digitalised RNA manufacturing platform processes for rapid, high-quality vaccine and therapeutic production.",
-    "parentOrganization": {
-      "@type": "CollegeOrUniversity",
-      "name": "University of Sheffield",
-      "url": "https://www.sheffield.ac.uk"
-    },
-    "founder": {
-      "@type": "Person",
-      "name": "Professor Zoltán Kis",
-      "jobTitle": "Professor of Bioprocess Engineering",
-      "url": "https://www.sheffield.ac.uk/cmbe/people/cbe-academic-staff/zoltan-kis"
-    },
-    "sameAs": [
-      "https://www.linkedin.com/in/zoltan-kis-phd/",
-      "https://scholar.google.com/citations?user=uciPYzUAAAAJ"
+    "@graph": [
+      {
+        "@type": "WebSite",
+        "@id": "https://rnamint.com/#website",
+        "url": "https://rnamint.com/",
+        "name": "RNA MINT",
+        "description": "RNA Manufacturing Innovation Team at the University of Sheffield"
+      },
+      {
+        "@type": ["Organization", "ResearchOrganization"],
+        "@id": "https://rnamint.com/#organization",
+        "name": "RNA Manufacturing Innovation Team",
+        "alternateName": "RNA MINT",
+        "url": "https://rnamint.com/",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://rnamint.com/images/RNA_Mint_Logo_8.webp"
+        },
+        "description": "RNA MINT develops digitalised RNA manufacturing platform processes for rapid, high-quality vaccine and therapeutic production at the University of Sheffield.",
+        "foundingDate": "2020",
+        "parentOrganization": {
+          "@type": "CollegeOrUniversity",
+          "name": "University of Sheffield",
+          "url": "https://www.sheffield.ac.uk",
+          "sameAs": "https://www.wikidata.org/wiki/Q202727"
+        },
+        "employee": { "@id": "https://rnamint.com/#zoltan-kis" },
+        "knowsAbout": [
+          "RNA manufacturing",
+          "mRNA vaccine production",
+          "circular RNA therapeutics",
+          "self-amplifying RNA",
+          "bioprocess modelling",
+          "digital twins",
+          "techno-economic analysis",
+          "RNA therapeutics"
+        ],
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Sheffield",
+          "addressCountry": "GB"
+        },
+        "sameAs": [
+          "https://www.linkedin.com/in/zoltan-kis-phd/",
+          "https://scholar.google.com/citations?user=uciPYzUAAAAJ"
+        ]
+      },
+      {
+        "@type": "Person",
+        "@id": "https://rnamint.com/#zoltan-kis",
+        "name": "Zoltán Kis",
+        "honorificPrefix": "Prof.",
+        "givenName": "Zoltán",
+        "familyName": "Kis",
+        "jobTitle": "Professor of Bioprocess Engineering",
+        "worksFor": { "@id": "https://rnamint.com/#organization" },
+        "affiliation": {
+          "@type": "CollegeOrUniversity",
+          "name": "University of Sheffield",
+          "url": "https://www.sheffield.ac.uk"
+        },
+        "url": "https://www.sheffield.ac.uk/cmbe/people/cbe-academic-staff/zoltan-kis",
+        "sameAs": [
+          "https://www.linkedin.com/in/zoltan-kis-phd/",
+          "https://scholar.google.com/citations?user=uciPYzUAAAAJ"
+        ]
+      },
+      {
+        "@type": "WebPage",
+        "@id": "https://rnamint.com/",
+        "url": "https://rnamint.com/",
+        "name": "RNA Manufacturing Innovation Team | University of Sheffield",
+        "isPartOf": { "@id": "https://rnamint.com/#website" },
+        "about": { "@id": "https://rnamint.com/#organization" },
+        "description": "RNA MINT develops digitalised RNA manufacturing platform processes for rapid, high-quality vaccine and therapeutic production at the University of Sheffield."
+      }
     ]
   }
   </script>
