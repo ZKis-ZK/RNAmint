@@ -174,7 +174,7 @@
       display: flex;
       align-items: center;
       min-width: 3px;
-      cursor: default;
+      cursor: pointer;
       transition: filter .15s, transform .15s;
     }
     .tl-bar:hover { filter: brightness(1.18); transform: scaleY(1.18); z-index: 10; }
@@ -223,6 +223,64 @@
     .tl-pi::before  { color: var(--brand-deep) !important; }
     .tl-coi::before { color: var(--brand) !important; }
     .tl-now::before { content: '│' !important; color: #dc2626 !important; }
+
+    /* ── Timeline bar popup ─────────────────────────────────── */
+    .tl-popup {
+      position: fixed;
+      z-index: 200;
+      background: #fff;
+      border: 1px solid rgba(0,0,0,.11);
+      border-radius: 10px;
+      box-shadow: 0 6px 28px rgba(0,0,0,.16);
+      padding: 13px 16px 14px;
+      max-width: 300px;
+      min-width: 200px;
+      font-size: 0.82rem;
+      line-height: 1.45;
+      color: var(--ink);
+    }
+    .tl-popup[hidden] { display: none; }
+    .tl-popup-close {
+      float: right;
+      background: none;
+      border: none;
+      font-size: 1.1rem;
+      line-height: 1;
+      cursor: pointer;
+      color: var(--muted);
+      padding: 0 0 4px 8px;
+      margin: 0 -4px 0 0;
+    }
+    .tl-popup-close:hover { color: var(--ink); }
+    .tl-popup-title {
+      font-weight: 700;
+      margin-bottom: 5px;
+      padding-right: 18px;
+      line-height: 1.35;
+    }
+    .tl-popup-meta {
+      color: var(--muted);
+      font-size: 0.73rem;
+      margin-bottom: 10px;
+    }
+    .tl-popup-link {
+      display: inline-block;
+      color: var(--brand-deep);
+      font-weight: 600;
+      text-decoration: none;
+      font-size: 0.79rem;
+    }
+    .tl-popup-link:hover { text-decoration: underline; }
+    .tl-popup-extra {
+      font-size: 0.76rem;
+      color: var(--muted-strong);
+      font-style: italic;
+      border-top: 1px solid rgba(0,0,0,.08);
+      margin-top: 10px;
+      padding-top: 10px;
+      line-height: 1.4;
+    }
+    .tl-bar-active { outline: 2px solid rgba(255,255,255,.75); z-index: 20 !important; }
   </style>
 </head>
 <body>
@@ -312,7 +370,7 @@
     <section>
       <div class="section-heading">
         <h2>Research funding timeline</h2>
-        <p>All grants spanning their funding period.</p>
+        <p>All grants spanning their funding period. Click any bar to expand details and open links.</p>
       </div>
       <div class="tl-legend">
         <span class="tl-pi">Principal Investigator</span>
@@ -339,73 +397,85 @@
           <div class="tl-row">
             <div class="tl-lbl">UKRI</div>
             <div class="tl-trk"><div class="tl-bar coi" data-start="2020-07" data-end="2022-01"
-              title="Meeting the UK demand for COVID-19 vaccines — UKRI — Co-I — £445,000 — Jul 2020 → Jan 2022">COVID-19</div></div>
+              title="Meeting the UK demand for COVID-19 vaccines — UKRI — Co-applicant — £445,000 — Jul 2020 → Jan 2022"
+              data-link="https://gtr.ukri.org/projects?ref=EP%2FV01479X%2F1">COVID-19</div></div>
           </div>
 
           <div class="tl-row">
             <div class="tl-lbl">Kidney Res. UK</div>
             <div class="tl-trk"><div class="tl-bar coi" data-start="2020-09" data-end="2021-08"
-              title="Cell catcher: cell isolation from urine samples — Kidney Research UK — Co-I — £40,000 — Sep 2020 → Aug 2021">Cell catcher</div></div>
+              title="Cell catcher: cell isolation from urine samples — Kidney Research UK — Co-I — £40,000 — Sep 2020 → Aug 2021"
+              data-link="https://www.kidneyresearchuk.org/2024/10/29/cell-catcher-a-new-device-for-patients-to-capture-kidney-cells-in-their-urine-at-home/">Cell catcher</div></div>
           </div>
 
           <div class="tl-row">
             <div class="tl-lbl">Wellcome Trust</div>
             <div class="tl-trk"><div class="tl-bar coi" data-start="2020-09" data-end="2022-08"
-              title="Live-attenuated whole parasite malaria vaccine — Wellcome Trust — Co-I — £727,000 — Sep 2020 → Aug 2022">Malaria vaccine</div></div>
+              title="Live-attenuated whole parasite malaria vaccine — Wellcome Trust — Co-applicant — £727,000 — Sep 2020 → Aug 2022"
+              data-link="https://wellcome.org/research-funding/funding-portfolio/funded-grants/pathway-live-attenuated-whole-parasite-malaria-0">Malaria vaccine</div></div>
           </div>
 
           <div class="tl-row">
             <div class="tl-lbl">Wellcome Leap</div>
             <div class="tl-trk"><div class="tl-bar pi"  data-start="2021-12" data-end="2024-10"
-              title="Digitalised RNA production for therapy &amp; pandemic preparedness — Wellcome Leap R3 — PI — Multi-million USD — Dec 2021 → Oct 2024">Wellcome Leap R3</div></div>
+              title="Digitalised RNA production for therapy &amp; pandemic preparedness — Wellcome Leap R3 — PI — Multi-million USD — Dec 2021 → Oct 2024"
+              data-link="https://wellcomeleap.org/r3/program/">Wellcome Leap R3</div></div>
           </div>
 
           <div class="tl-row">
             <div class="tl-lbl">UKRI HEIF</div>
             <div class="tl-trk"><div class="tl-bar coi" data-start="2022-01" data-end="2022-07"
-              title="Innovating RNA vaccine and therapeutic manufacturing — UKRI HEIF — Co-I — £74,000 — Jan 2022 → Jul 2022">HEIF</div></div>
+              title="Innovating RNA vaccine and therapeutic manufacturing — UKRI HEIF — Co-I — £74,000 — Jan 2022 → Jul 2022"
+              data-extra-title="Innovating the process of RNA vaccine and therapeutic manufacturing &#8211; building external partnerships and exploring commercialisation opportunities">HEIF</div></div>
           </div>
 
           <div class="tl-row">
             <div class="tl-lbl">BBSRC</div>
             <div class="tl-trk"><div class="tl-bar coi" data-start="2023-06" data-end="2024-12"
-              title="NanoAnalyzer: technology to analyse life at the nanoscale — BBSRC ALERT — Co-I — £242,000 — Jun 2023">NanoAnalyzer</div></div>
+              title="NanoAnalyzer: technology to analyse life at the nanoscale — BBSRC ALERT — Co-I — £242,000 — Jun 2023"
+              data-link="https://gtr.ukri.org/projects?ref=BB%2FX018989%2F1">NanoAnalyzer</div></div>
           </div>
 
           <div class="tl-row">
             <div class="tl-lbl">Innovate UK</div>
             <div class="tl-trk"><div class="tl-bar pi"  data-start="2023-10" data-end="2026-03"
-              title="Automated RNA process-in-a-box for outbreak response — Innovate UK — PI — £2M — Oct 2023 → Mar 2026">RNA process-in-box</div></div>
+              title="Automated RNA process-in-a-box for outbreak response — Innovate UK — PI — £2M — Oct 2023 → Mar 2026"
+              data-link="https://gtr.ukri.org/projects?ref=BB%2FY007514%2F1">RNA process-in-box</div></div>
           </div>
 
           <div class="tl-row">
             <div class="tl-lbl">BBSRC iCASE</div>
             <div class="tl-trk"><div class="tl-bar coi" data-start="2023-10" data-end="2027-09"
-              title="Polymerase engineering for next-gen RNA therapeutics (AstraZeneca) — BBSRC — Co-I — £84,000 — Oct 2023 → Sep 2027">AstraZeneca iCASE</div></div>
+              title="Polymerase engineering for next-gen RNA therapeutics (AstraZeneca) — BBSRC — Co-I — £84,000 — Oct 2023 → Sep 2027"
+              data-extra-title="Synthetic Biology-Based Polymerase and Promoter Engineering for Production of Next-Generation RNA Therapeutics">AstraZeneca iCASE</div></div>
           </div>
 
           <div class="tl-row">
             <div class="tl-lbl">EPSRC</div>
             <div class="tl-trk"><div class="tl-bar coi" data-start="2023-10" data-end="2027-09"
-              title="Quantification of dsRNA impurities via microfluidics spectroscopy — EPSRC / RedShift — Co-I — £130,000 — Oct 2023 → Sep 2027">MMS dsRNA analytics</div></div>
+              title="Quantification of dsRNA impurities via microfluidics spectroscopy — EPSRC / RedShift — Co-I — £130,000 — Oct 2023 → Sep 2027"
+              data-extra-title="Structural Characterization of RNA and Detection of RNA-Ligand Binding Using Microfluidic Modulation Spectroscopy">MMS dsRNA analytics</div></div>
           </div>
 
           <div class="tl-row">
             <div class="tl-lbl">EPSRC / DHSC</div>
             <div class="tl-trk"><div class="tl-bar coi" data-start="2023-11" data-end="2028-11"
-              title="UK–South-East Asia vaccine manufacturing research hub — EPSRC/DHSC — Co-I — £7.6M — Nov 2023 → Nov 2028">UK-SEA Vax Hub</div></div>
+              title="UK–South-East Asia vaccine manufacturing research hub — EPSRC/DHSC — Co-I — £7.6M — Nov 2023 → Nov 2028"
+              data-link="https://ukseavaxhub.org/">UK-SEA Vax Hub</div></div>
           </div>
 
           <div class="tl-row">
             <div class="tl-lbl">BBSRC</div>
             <div class="tl-trk"><div class="tl-bar coi" data-start="2024-04" data-end="2027-03"
-              title="Electrospun mucoadhesive matrices for mRNA vaccine delivery — BBSRC — Co-I — £2,382,846 — Apr 2024 → Mar 2027">Next-gen mfg., oral mRNA delivery</div></div>
+              title="Electrospun mucoadhesive matrices for mRNA vaccine delivery — BBSRC — Co-I — £2,382,846 — Apr 2024 → Mar 2027"
+              data-link="https://gtr.ukri.org/projects?ref=BB%2FY007514%2F1">Next-gen mfg., oral mRNA delivery</div></div>
           </div>
 
           <div class="tl-row">
             <div class="tl-lbl">CEPI</div>
             <div class="tl-trk"><div class="tl-bar pi"  data-start="2024-10" data-end="2027-09"
-              title="RNAbox: automated continuous RNA platform process-in-a-box — CEPI — PI — £3.7M — Oct 2024 → Sep 2027">RNAbox</div></div>
+              title="RNAbox: automated continuous RNA platform process-in-a-box — CEPI — PI — £3.7M — Oct 2024 → Sep 2027"
+              data-link="https://cepi.net/new-vaccine-making-process-could-transform-pandemic-response">RNAbox</div></div>
           </div>
 
           <div class="tl-today" id="tl-today-marker"></div>
@@ -714,6 +784,77 @@
       }
     })();
   })();
+
+    /* ── Timeline bar click-to-expand popup ─────────────────── */
+    (function () {
+      const popup = document.createElement('div');
+      popup.className = 'tl-popup';
+      popup.hidden = true;
+      document.body.appendChild(popup);
+
+      let openBar = null;
+
+      function openPopup(bar, evt) {
+        const parts = (bar.getAttribute('title') || '').split(' — ');
+        const fullTitle = parts[0] || bar.textContent.trim();
+        const role      = parts[2] || '';
+        const budget    = parts[3] || '';
+        const dates     = parts[4] || '';
+        const link      = bar.dataset.link;
+        const extra     = bar.dataset.extraTitle;
+
+        let html = '<button class="tl-popup-close" aria-label="Close">&#215;</button>';
+        html += '<div class="tl-popup-title">' + fullTitle + '</div>';
+        const meta = [role, budget, dates].filter(Boolean).join(' · ');
+        if (meta) html += '<div class="tl-popup-meta">' + meta + '</div>';
+        if (link) {
+          html += '<a class="tl-popup-link" href="' + link +
+                  '" target="_blank" rel="noopener noreferrer">View project &#8599;</a>';
+        }
+        if (extra) {
+          html += '<div class="tl-popup-extra">' + extra + '</div>';
+        }
+
+        popup.innerHTML = html;
+        popup.hidden = false;
+
+        const rect = bar.getBoundingClientRect();
+        const pw   = popup.offsetWidth  || 300;
+        const ph   = popup.offsetHeight || 140;
+        let left = rect.left;
+        let top  = rect.bottom + 8;
+        if (left + pw > window.innerWidth - 8)  left = window.innerWidth - pw - 8;
+        if (left < 8) left = 8;
+        if (top + ph > window.innerHeight - 8)  top = rect.top - ph - 8;
+        popup.style.left = left + 'px';
+        popup.style.top  = top  + 'px';
+
+        popup.querySelector('.tl-popup-close').addEventListener('click', closePopup, { once: true });
+        if (openBar) openBar.classList.remove('tl-bar-active');
+        bar.classList.add('tl-bar-active');
+        openBar = bar;
+        evt.stopPropagation();
+      }
+
+      function closePopup() {
+        popup.hidden = true;
+        if (openBar) { openBar.classList.remove('tl-bar-active'); openBar = null; }
+      }
+
+      document.addEventListener('click', function (evt) {
+        if (!popup.hidden && !popup.contains(evt.target)) closePopup();
+      });
+      document.addEventListener('keydown', function (evt) {
+        if (evt.key === 'Escape') closePopup();
+      });
+
+      document.querySelectorAll('.tl-bar[data-start]').forEach(function (bar) {
+        bar.addEventListener('click', function (evt) {
+          if (openBar === bar) { closePopup(); return; }
+          openPopup(bar, evt);
+        });
+      });
+    })();
 
     /* ═══ FUN: Fresh ideas typewriter (remove to revert) ═══ */
     (function() {
