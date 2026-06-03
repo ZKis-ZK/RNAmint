@@ -1,3 +1,5 @@
+# macOS
 .DS_Store
-tmp/
+
+# Local-only scripts (not needed in repo)
 download_images.sh
