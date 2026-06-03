@@ -82,6 +82,31 @@
       font-weight: 600;
     }
     html, body { overflow-x: hidden; max-width: 100%; }
+
+    /* ═══ FUN: Fresh ideas tagline (remove this block to revert) ═══ */
+    .mint-tagline {
+      display: inline-flex; align-items: center; gap: .45rem;
+      margin-top: .85rem;
+      padding: .3rem .9rem .3rem .7rem;
+      border-radius: 20px;
+      background: rgba(102,168,158,.10);
+      border: 1.5px solid rgba(102,168,158,.35);
+      font-size: .82rem; font-weight: 700;
+      color: #66a89e;
+      animation: mint-glow 4s ease-in-out infinite;
+    }
+    .mint-leaf { display: inline-block; animation: leaf-sway 2.5s ease-in-out infinite; }
+    #mint-typed { border-right: 2px solid #66a89e; padding-right: 2px; }
+    #mint-typed.done { border-right: none; }
+    @keyframes mint-glow {
+      0%,100% { box-shadow: 0 0 0 rgba(102,168,158,0); }
+      50%      { box-shadow: 0 0 12px rgba(102,168,158,.25); }
+    }
+    @keyframes leaf-sway {
+      0%,100% { transform: rotate(-12deg); }
+      50%      { transform: rotate(12deg); }
+    }
+    /* ═════════════════════════════════════════════════ */
     @media (max-width: 600px) {
       .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 1.25rem; }
     }
@@ -219,6 +244,11 @@
     <section class="page-hero">
       <h1>Our Research</h1>
       <h2>Transforming RNA Vaccine and Therapeutics Manufacturing</h2>
+      <!-- ═══ FUN: Fresh ideas tagline (remove to revert) ═══ -->
+      <div class="mint-tagline" id="mint-tagline" aria-hidden="true">
+        <span class="mint-leaf">🌿</span>
+        <span id="mint-typed"></span>
+      </div>
     </section>
 
     <!-- Stats strip -->
@@ -682,6 +712,25 @@
       }
     })();
   })();
+
+    /* ═══ FUN: Fresh ideas typewriter (remove to revert) ═══ */
+    (function() {
+      const el = document.getElementById("mint-typed");
+      if (!el) return;
+      const msg = "RNA MINT — Fresh ideas";
+      let i = 0, started = false;
+      function type() {
+        if (i <= msg.length) {
+          el.textContent = msg.slice(0, i++);
+          if (i > msg.length) el.classList.add("done");
+          else setTimeout(type, 65);
+        }
+      }
+      new IntersectionObserver(entries => {
+        entries.forEach(e => { if (e.isIntersecting && !started) { started=true; setTimeout(type,600); } });
+      }, { threshold: 0.5 }).observe(document.getElementById("mint-tagline") || el);
+    })();
+    /* ═════════════════════════════════════════════════ */
   </script>
 
   <footer class="site-footer">

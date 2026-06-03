@@ -136,6 +136,31 @@
       margin-left: .5rem;
     }
     .at-now-legend::before { content: "│"; margin-right: 4px; color: #dc2626; font-size: 1em; }
+
+    /* ═══ FUN: KIS Easter egg (remove this block to revert) ═══ */
+    #zk-card { position: relative; }
+    .kis-badge {
+      display: inline-flex; align-items: center; gap: .35rem;
+      padding: .25rem .75rem;
+      background: var(--brand-soft);
+      color: var(--brand-deep);
+      border: 1.5px solid var(--brand);
+      border-radius: 20px;
+      font-size: .72rem; font-weight: 800; letter-spacing: .04em;
+      margin-bottom: .6rem;
+      opacity: 0; transform: translateY(-6px) scale(.95);
+      transition: opacity .4s ease, transform .4s ease;
+      cursor: default; user-select: none;
+      white-space: nowrap;
+    }
+    .kis-badge .kis-emoji { font-size: 1em; animation: kis-spin 6s linear infinite; display: inline-block; }
+    @keyframes kis-spin { 0%,90%,100%{transform:rotate(0)} 50%{transform:rotate(360deg)} }
+    /* Desktop: show on hover */
+    #zk-card:hover .kis-badge,
+    #zk-card:focus-within .kis-badge { opacity: 1; transform: none; }
+    /* Mobile: always gently visible */
+    @media (hover: none) { .kis-badge { opacity: .7; transform: none; } }
+    /* ═════════════════════════════════════════════════ */
     .alumni-details { margin-top: 1.5rem; }
     .alumni-details summary {
       cursor: pointer; font-size: .9rem; font-weight: 700;
@@ -176,9 +201,16 @@
 
     <section>
       <article class="person">
-        <div class="person-card">
+        <!-- ═══ FUN: KIS card (remove id and .kis-badge to revert) ═══ -->
+        <div class="person-card" id="zk-card">
           <img src="images/Professor Zoltan Kis.webp" alt="Professor Zoltán Kis">
           <div class="person-details">
+            <!-- KIS badge -->
+            <div class="kis-badge" aria-label="KIS principle" title="KIS = Keep It Simple">
+              <span class="kis-emoji">✨</span>
+              <span>KIS</span>
+              <span style="opacity:.6;font-weight:600">= Keep It Simple</span>
+            </div>
             <h2>Professor Zoltán Kis — Team Leader</h2>
             <p>Zoltán Kis is a Professor of Bioprocess Engineering at the School of Chemical, Materials and Biological Engineering at the University of Sheffield, and an Honorary Lecturer at the Department of Chemical Engineering, Imperial College London.</p>
             <p>Zoltán is leading a multidisciplinary team that is innovating and digitalising RNA vaccine and therapeutics production platform technologies. His work is addressing the challenges of producing large volumes of RNA-based vaccines and therapeutics, rapidly, at high quality and at low cost in a disease-agnostic manner.</p>
