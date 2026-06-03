@@ -23,6 +23,8 @@
       animation: mint-glow 4s ease-in-out infinite;
     }
     .mint-leaf { display: inline-block; animation: leaf-sway 2.5s ease-in-out infinite; }
+    #about-mint-tagline { margin-left: auto; }
+    @media (max-width: 700px) { #about-mint-tagline { margin-left: 0; } }
     @keyframes mint-glow {
       0%,100% { box-shadow: 0 0 0 rgba(102,168,158,0); }
       50%      { box-shadow: 0 0 12px rgba(102,168,158,.25); }
@@ -177,7 +179,7 @@
           <a class="button primary" href="research.html">Explore research</a>
           <a class="button secondary" href="contact.html">Collaborate with us</a>
           <!-- ═══ FUN: Fresh ideas tagline (remove to revert) ═══ -->
-          <div class="mint-tagline" id="about-mint-tagline" aria-hidden="true" style="margin-left:auto;">
+          <div class="mint-tagline" id="about-mint-tagline" aria-hidden="true">
             <span class="mint-leaf">🌿</span>
             <span id="about-mint-typed"></span>
           </div>
