@@ -548,6 +548,7 @@ li     { margin: 0.45rem 0; color: var(--muted-strong); }
 
 .person-details h2,
 .person-details h3 { margin-top: 0; margin-bottom: 0.35rem; }
+.person-meta { font-size: 0.82rem; color: var(--muted); margin: 0 0 0.6rem; }
 
 /* ── Page hero ───────────────────────────────────────────────── */
 .page-hero h2,
