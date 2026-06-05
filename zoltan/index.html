@@ -137,8 +137,10 @@
       width: 100%;
       height: 100%;
       object-fit: contain;
-      padding: 5px;
+      padding: 4px;
     }
+    .link-logo.logo-dark { background: #172331; border-color: #172331; }
+    .link-logo.logo-mint { background: #e8f4f2; border-color: var(--line); }
 
     .link-icon {
       width: 40px;
@@ -204,13 +206,16 @@
     /* ── Footer ─────────────────────────────────────────── */
     .page-footer {
       margin-top: 1.5rem;
+      width: 100%;
+      max-width: 460px;
+      background: #172331;
+      border-radius: var(--radius);
       display: flex;
       align-items: center;
-      gap: .5rem;
-      opacity: .55;
+      justify-content: center;
+      padding: .9rem 1.5rem;
     }
-    .page-footer img { height: 22px; }
-    .page-footer span { font-size: .72rem; font-weight: 600; color: var(--muted); }
+    .page-footer img { height: 28px; }
   </style>
 </head>
 <body>
@@ -235,8 +240,8 @@
       <div class="section-title">Research</div>
 
       <a class="link-row" href="https://rnamint.com/" target="_blank" rel="noopener">
-        <div class="link-logo">
-          <img src="/images/RNA_Mint_Logo_8.webp" alt="RNA MINT">
+        <div class="link-logo logo-mint">
+          <img src="/images/rnamint-icon.webp" alt="RNA MINT">
         </div>
         <div class="link-body">
           <div class="link-label">RNA MINT</div>
@@ -246,7 +251,7 @@
       </a>
 
       <a class="link-row" href="https://www.sheffield.ac.uk/cmbe/people/cbe-academic-staff/zoltan-kis" target="_blank" rel="noopener">
-        <div class="link-logo">
+        <div class="link-logo logo-dark">
           <img src="/images/university-of-sheffield.webp" alt="University of Sheffield">
         </div>
         <div class="link-body">
@@ -288,7 +293,7 @@
 
       <a class="link-row" href="https://www.simulenta.com/" target="_blank" rel="noopener">
         <div class="link-logo">
-          <img src="/images/simulenta-logo.webp" alt="Simulenta">
+          <img src="/images/simulenta-icon.webp" alt="Simulenta">
         </div>
         <div class="link-body">
           <div class="link-label">Simulenta</div>
@@ -356,7 +361,6 @@
 
   <footer class="page-footer">
     <img src="/images/RNA_Mint_Logo_9.webp" alt="RNA MINT">
-    <span>rnamint.com</span>
   </footer>
 
 </body>
