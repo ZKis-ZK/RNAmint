@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Prof. Zoltán Kis — Professor of Bioprocess Engineering, University of Sheffield. RNA MINT, Simulenta, RNA Forge.">
+  <title>Prof. Zoltán Kis</title>
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="canonical" href="https://rnamint.com/zoltan/">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --brand:      #66a89e;
+      --brand-deep: #4a8880;
+      --ink:        #29333f;
+      --muted:      #4a5a68;
+      --muted-lt:   #8a9baa;
+      --surface:    #ffffff;
+      --bg:         #f4f8f7;
+      --line:       rgba(102,168,158,.18);
+      --radius:     14px;
+      --shadow:     0 2px 16px rgba(0,0,0,.08);
+    }
+
+    body {
+      background: var(--bg);
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      color: var(--ink);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 2rem 1rem 3rem;
+    }
+
+    /* ── Card container ─────────────────────────────────── */
+    .card {
+      background: var(--surface);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      width: 100%;
+      max-width: 460px;
+      overflow: hidden;
+    }
+
+    /* ── Profile header ─────────────────────────────────── */
+    .profile-header {
+      background: linear-gradient(160deg, rgba(102,168,158,.14) 0%, rgba(255,255,255,0) 70%);
+      border-bottom: 1px solid var(--line);
+      padding: 2rem 1.75rem 1.5rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: .6rem;
+    }
+
+    .profile-photo {
+      width: 108px;
+      height: 108px;
+      border-radius: 50%;
+      object-fit: cover;
+      object-position: center top;
+      border: 3px solid rgba(102,168,158,.35);
+      margin-bottom: .4rem;
+    }
+
+    .profile-name {
+      font-size: 1.35rem;
+      font-weight: 800;
+      color: var(--ink);
+      line-height: 1.2;
+    }
+
+    .profile-title {
+      font-size: .88rem;
+      font-weight: 600;
+      color: var(--brand-deep);
+      line-height: 1.4;
+    }
+
+    .profile-inst {
+      font-size: .8rem;
+      color: var(--muted);
+      line-height: 1.45;
+    }
+
+    /* ── Sections ───────────────────────────────────────── */
+    .section {
+      padding: 1.1rem 1.5rem .4rem;
+      border-bottom: 1px solid var(--line);
+    }
+    .section:last-child { border-bottom: none; }
+
+    .section-title {
+      font-size: .67rem;
+      font-weight: 800;
+      letter-spacing: .09em;
+      text-transform: uppercase;
+      color: var(--muted-lt);
+      margin-bottom: .5rem;
+    }
+
+    /* ── Link rows ──────────────────────────────────────── */
+    .link-row {
+      display: flex;
+      align-items: center;
+      gap: .85rem;
+      padding: .72rem .2rem;
+      border-radius: 8px;
+      text-decoration: none;
+      color: var(--ink);
+      transition: background .13s;
+      cursor: pointer;
+      border-bottom: 1px solid var(--line);
+    }
+    .link-row:last-child { border-bottom: none; }
+    .link-row:hover, .link-row:active { background: var(--bg); }
+
+    .link-logo {
+      width: 40px;
+      height: 40px;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 10px;
+      overflow: hidden;
+      background: var(--surface);
+      border: 1px solid var(--line);
+    }
+    .link-logo img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      padding: 5px;
+    }
+
+    .link-icon {
+      width: 40px;
+      height: 40px;
+      flex-shrink: 0;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .link-icon svg { width: 22px; height: 22px; }
+
+    .icon-email    { background: #e8f4f2; color: var(--brand-deep); }
+    .icon-linkedin { background: #e8f0fb; color: #0A66C2; }
+    .icon-scholar  { background: #fef3e2; color: #b06800; }
+    .icon-uos      { background: #f0f0f0; }
+
+    .link-body {
+      flex: 1;
+      min-width: 0;
+    }
+    .link-label {
+      font-size: .88rem;
+      font-weight: 700;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .link-sub {
+      font-size: .75rem;
+      color: var(--muted);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .link-arrow {
+      color: var(--muted-lt);
+      font-size: 1rem;
+      flex-shrink: 0;
+    }
+
+    /* ── Project manager mini-card ──────────────────────── */
+    .pm-card {
+      background: var(--bg);
+      border-radius: 10px;
+      padding: .85rem 1rem;
+      margin: .4rem 0 .6rem;
+      display: flex;
+      flex-direction: column;
+      gap: .25rem;
+    }
+    .pm-name {
+      font-size: .88rem;
+      font-weight: 700;
+      color: var(--ink);
+    }
+    .pm-role {
+      font-size: .75rem;
+      color: var(--muted);
+    }
+
+    /* ── Footer ─────────────────────────────────────────── */
+    .page-footer {
+      margin-top: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: .5rem;
+      opacity: .55;
+    }
+    .page-footer img { height: 22px; }
+    .page-footer span { font-size: .72rem; font-weight: 600; color: var(--muted); }
+  </style>
+</head>
+<body>
+
+  <div class="card">
+
+    <!-- ── Profile ── -->
+    <div class="profile-header">
+      <img class="profile-photo"
+           src="/images/Professor Zoltan Kis.webp"
+           alt="Prof. Zoltán Kis">
+      <div class="profile-name">Prof. Zoltán Kis</div>
+      <div class="profile-title">Professor of Bioprocess Engineering</div>
+      <div class="profile-inst">
+        School of Chemical, Materials and Biological Engineering<br>
+        University of Sheffield
+      </div>
+    </div>
+
+    <!-- ── Research ── -->
+    <div class="section">
+      <div class="section-title">Research</div>
+
+      <a class="link-row" href="https://rnamint.com/" target="_blank" rel="noopener">
+        <div class="link-logo">
+          <img src="/images/RNA_Mint_Logo_8.webp" alt="RNA MINT">
+        </div>
+        <div class="link-body">
+          <div class="link-label">RNA MINT</div>
+          <div class="link-sub">rnamint.com</div>
+        </div>
+        <span class="link-arrow">›</span>
+      </a>
+
+      <a class="link-row" href="https://www.sheffield.ac.uk/cmbe/people/cbe-academic-staff/zoltan-kis" target="_blank" rel="noopener">
+        <div class="link-logo">
+          <img src="/images/university-of-sheffield.webp" alt="University of Sheffield">
+        </div>
+        <div class="link-body">
+          <div class="link-label">University of Sheffield</div>
+          <div class="link-sub">Academic profile</div>
+        </div>
+        <span class="link-arrow">›</span>
+      </a>
+
+      <a class="link-row" href="https://scholar.google.com/citations?user=uciPYzUAAAAJ" target="_blank" rel="noopener">
+        <div class="link-icon icon-scholar">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M22 10v6M2 10l10-5 10 5-10 5z"/>
+            <path d="M6 12v5c3 3 9 3 12 0v-5"/>
+          </svg>
+        </div>
+        <div class="link-body">
+          <div class="link-label">Google Scholar</div>
+          <div class="link-sub">Publications &amp; citations</div>
+        </div>
+        <span class="link-arrow">›</span>
+      </a>
+    </div>
+
+    <!-- ── Companies ── -->
+    <div class="section">
+      <div class="section-title">Companies</div>
+
+      <a class="link-row" href="https://www.linkedin.com/company/rna-forge/posts/?feedView=all" target="_blank" rel="noopener">
+        <div class="link-logo">
+          <img src="/images/rna-forge-logo.webp" alt="RNA Forge">
+        </div>
+        <div class="link-body">
+          <div class="link-label">RNA Forge</div>
+          <div class="link-sub">LinkedIn page</div>
+        </div>
+        <span class="link-arrow">›</span>
+      </a>
+
+      <a class="link-row" href="https://www.simulenta.com/" target="_blank" rel="noopener">
+        <div class="link-logo">
+          <img src="/images/simulenta-logo.webp" alt="Simulenta">
+        </div>
+        <div class="link-body">
+          <div class="link-label">Simulenta</div>
+          <div class="link-sub">simulenta.com</div>
+        </div>
+        <span class="link-arrow">›</span>
+      </a>
+    </div>
+
+    <!-- ── Contact ── -->
+    <div class="section">
+      <div class="section-title">Contact</div>
+
+      <a class="link-row" href="mailto:z.kis@sheffield.ac.uk">
+        <div class="link-icon icon-email">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="2" y="4" width="20" height="16" rx="2"/>
+            <path d="m2 7 10 7 10-7"/>
+          </svg>
+        </div>
+        <div class="link-body">
+          <div class="link-label">z.kis@sheffield.ac.uk</div>
+        </div>
+        <span class="link-arrow">›</span>
+      </a>
+
+      <a class="link-row" href="https://www.linkedin.com/in/zoltan-kis-phd/" target="_blank" rel="noopener">
+        <div class="link-icon icon-linkedin">
+          <svg viewBox="0 0 24 24" fill="currentColor">
+            <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/>
+            <rect x="2" y="9" width="4" height="12"/>
+            <circle cx="4" cy="4" r="2"/>
+          </svg>
+        </div>
+        <div class="link-body">
+          <div class="link-label">LinkedIn</div>
+          <div class="link-sub">linkedin.com/in/zoltan-kis-phd</div>
+        </div>
+        <span class="link-arrow">›</span>
+      </a>
+    </div>
+
+    <!-- ── Project Manager ── -->
+    <div class="section">
+      <div class="section-title">Project Manager</div>
+      <div class="pm-card">
+        <div class="pm-name">Dr Mabrouka Maamra</div>
+        <div class="pm-role">RNA MINT Project Manager</div>
+      </div>
+      <a class="link-row" href="mailto:m.maamra@sheffield.ac.uk">
+        <div class="link-icon icon-email">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="2" y="4" width="20" height="16" rx="2"/>
+            <path d="m2 7 10 7 10-7"/>
+          </svg>
+        </div>
+        <div class="link-body">
+          <div class="link-label">m.maamra@sheffield.ac.uk</div>
+        </div>
+        <span class="link-arrow">›</span>
+      </a>
+    </div>
+
+  </div><!-- .card -->
+
+  <footer class="page-footer">
+    <img src="/images/RNA_Mint_Logo_9.webp" alt="RNA MINT">
+    <span>rnamint.com</span>
+  </footer>
+
+</body>
+</html>
