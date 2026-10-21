@@ -33,6 +33,7 @@ RNAmint/
 ├── team/index.html         ← Team page            (rnamint.com/team/)
 ├── contact/index.html      ← Contact page         (rnamint.com/contact/)
 ├── zoltan/index.html       ← Virtual business card (rnamint.com/zoltan/) — not in the sitemap or menus
+├── 404.html                ← "Page not found" page shown for mistyped addresses
 │
 ├── research.html           ← Redirect stub: rnamint.com/research.html → /research/
 ├── team.html               ← Redirect stub: rnamint.com/team.html     → /team/
@@ -41,6 +42,7 @@ RNAmint/
 │
 ├── styles.css              ← Global stylesheet (used by all pages)
 ├── favicon.svg             ← Browser tab icon
+├── apple-touch-icon.png    ← 180×180 icon used when the site is saved to an iPhone/iPad home screen
 ├── robots.txt              ← Tells search engines which pages to index
 ├── sitemap.xml             ← List of pages submitted to Google (dates updated automatically)
 ├── CNAME                   ← Custom domain config for GitHub Pages (rnamint.com)
@@ -118,7 +120,8 @@ Output: `images/rnamint_fresh_ideas.gif` and `images/kis_keep_it_simple.gif`
 - UK spelling (modelling, optimisation, programme)
 - `Prof` and `Dr` without full stops (University of Sheffield style)
 - Dates in lists and timelines: three-letter months, e.g. `Sep 2022 – May 2026`
-- Lower case for descriptions unless a proper noun requires capitals
+- Lower case for descriptions and headings unless a proper noun requires capitals (e.g. "MSc research students")
+- "post-doctoral" (with hyphen); "Ltd" without a full stop
 
 ---
 
@@ -183,6 +186,7 @@ _Last generated: 2026-10-21_
 | https://rnamint.com/team/ | `team/index.html` | 2026-10-21 | yes |
 | https://rnamint.com/contact/ | `contact/index.html` | 2026-10-21 | yes |
 | https://rnamint.com/zoltan/ | `zoltan/index.html` | 2026-10-21 | no |
+| https://rnamint.com/404.html | `404.html` | 2026-10-21 | no |
 
 ### Current grants (8) — as shown to visitors today
 
