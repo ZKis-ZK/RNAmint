@@ -10,7 +10,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/styles.css?v=475640fa">
+  <link rel="stylesheet" href="/styles.css?v=8093325a">
   <!-- SEO: canonical & Open Graph -->
   <link rel="canonical" href="https://rnamint.com/research/">
   <meta property="og:type"        content="website">
@@ -785,9 +785,8 @@
       // Always finish on the real value, even if animation frames are paused (e.g. a background tab)
       setTimeout(() => { el.textContent = prefix + target + suffix; }, dur + 200);
     }
-    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     const strip = document.querySelector('.stats-strip');
-    if (strip && !reduceMotion) {
+    if (strip) {
       new IntersectionObserver((entries) => {
         entries.forEach(e => {
           if (!e.isIntersecting) return;
@@ -980,7 +979,6 @@
       const el = document.getElementById("mint-typed");
       if (!el) return;
       const msg = "RNA MINT — Fresh ideas";
-      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) { el.textContent = msg; el.classList.add("done"); return; }
       let i = 0, started = false;
       function type() {
         if (i <= msg.length) {
