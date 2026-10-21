@@ -976,3 +976,21 @@ li     { margin: 0.45rem 0; color: var(--muted-strong); }
   .footer-logo { height: 34px; }
   .uos-logo    { height: 42px; }
 }
+
+/* ── Accessibility ───────────────────────────────────────────── */
+/* Keyboard focus ring for clickable timeline bars and gallery photos */
+.tl-bar[tabindex]:focus-visible,
+.gallery-item[tabindex]:focus-visible {
+  outline: 3px solid var(--brand);
+  outline-offset: 2px;
+}
+
+/* Visitors who ask their device to reduce motion: show everything still */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}

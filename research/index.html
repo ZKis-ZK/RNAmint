@@ -322,19 +322,19 @@
     <div class="stats-strip">
       <div class="stats-grid">
         <div>
-          <span class="stat-num" data-target="25" data-prefix="£" data-suffix="M+">£0M+</span>
+          <span class="stat-num" data-target="25" data-prefix="£" data-suffix="M+">£25M+</span>
           <span class="stat-lbl">Research funding (incl. collaborative)</span>
         </div>
         <div>
-          <span class="stat-num" id="stat-active-grants" data-target="8">0</span>
+          <span class="stat-num" id="stat-active-grants" data-target="8">8</span>
           <span class="stat-lbl">Active grants</span>
         </div>
         <div>
-          <span class="stat-num" data-target="40" data-suffix="+">0+</span>
+          <span class="stat-num" data-target="40" data-suffix="+">40+</span>
           <span class="stat-lbl">Researchers (incl. co-supervised)</span>
         </div>
         <div>
-          <span class="stat-num" data-target="50" data-suffix="+">0+</span>
+          <span class="stat-num" data-target="50" data-suffix="+">50+</span>
           <span class="stat-lbl">Publications</span>
         </div>
       </div>
@@ -767,6 +767,7 @@
           return y * 12 + (m - 1) >= thisMonth;
         }).length;
         stat.dataset.target = active;
+        stat.textContent = active;
       }
     })();
 
@@ -781,9 +782,12 @@
         el.textContent = prefix + (Number.isInteger(target) ? Math.floor(val) : val.toFixed(1)) + suffix;
         if (p < 1) requestAnimationFrame(tick);
       })(t0);
+      // Always finish on the real value, even if animation frames are paused (e.g. a background tab)
+      setTimeout(() => { el.textContent = prefix + target + suffix; }, dur + 200);
     }
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     const strip = document.querySelector('.stats-strip');
-    if (strip) {
+    if (strip && !reduceMotion) {
       new IntersectionObserver((entries) => {
         entries.forEach(e => {
           if (!e.isIntersecting) return;
@@ -946,13 +950,27 @@
         if (!popup.hidden && !popup.contains(evt.target)) closePopup();
       });
       document.addEventListener('keydown', function (evt) {
-        if (evt.key === 'Escape') closePopup();
+        if (evt.key === 'Escape' && !popup.hidden) {
+          const bar = openBar;
+          closePopup();
+          if (bar) bar.focus();
+        }
       });
 
       document.querySelectorAll('.tl-bar[data-start]').forEach(function (bar) {
+        bar.setAttribute('tabindex', '0');
+        bar.setAttribute('role', 'button');
+        bar.setAttribute('aria-label', (bar.getAttribute('title') || bar.textContent).split(' — ')[0] + ' — show details');
         bar.addEventListener('click', function (evt) {
           if (openBar === bar) { closePopup(); return; }
           openPopup(bar, evt);
+        });
+        bar.addEventListener('keydown', function (evt) {
+          if (evt.key !== 'Enter' && evt.key !== ' ') return;
+          evt.preventDefault();
+          bar.click();
+          // Move keyboard focus into the popup so its link can be reached
+          if (!popup.hidden) (popup.querySelector('.tl-popup-link') || popup.querySelector('.tl-popup-close')).focus();
         });
       });
     })();
@@ -962,6 +980,7 @@
       const el = document.getElementById("mint-typed");
       if (!el) return;
       const msg = "RNA MINT — Fresh ideas";
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) { el.textContent = msg; el.classList.add("done"); return; }
       let i = 0, started = false;
       function type() {
         if (i <= msg.length) {

@@ -413,6 +413,25 @@
     document.querySelector('.ac-next').addEventListener('click', e => { e.stopPropagation(); show(cur+1); resetTimer(); });
     dots.forEach((d,i) => d.addEventListener('click', () => { show(i); resetTimer(); }));
 
+    // Pause while the mouse is over the slideshow or keyboard focus is inside it;
+    // visitors who ask their device to reduce motion get no automatic advance at all.
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const outer = document.getElementById('ac-outer');
+    let hovered = false, focused = false;
+    function pause() {
+      clearInterval(timer); clearTimeout(progTimer); timer = null;
+      if (prog) { prog.style.transition = 'none'; prog.style.width = '0%'; }
+    }
+    function maybeResume() { if (!hovered && !focused && !reduceMotion) resetTimer(); }
+    const _resetTimer = resetTimer;
+    resetTimer = function () { if (reduceMotion || hovered || focused) { pause(); return; } _resetTimer(); };
+    if (outer) {
+      outer.addEventListener('mouseenter', () => { hovered = true; pause(); });
+      outer.addEventListener('mouseleave', () => { hovered = false; maybeResume(); });
+      outer.addEventListener('focusin',    e => { if (e.target.matches(':focus-visible')) { focused = true; pause(); } });
+      outer.addEventListener('focusout',   e => { if (!outer.contains(e.relatedTarget)) { focused = false; maybeResume(); } });
+    }
+
     resetTimer();
   })();
   </script>
@@ -441,22 +460,32 @@
         lbImg.alt = images[current].alt;
       }
 
+      let opener = null;
       function open(index) {
+        opener = document.activeElement;
         show(index);
         lb.classList.add('is-open');
         document.body.style.overflow = 'hidden';
+        lb.querySelector('.lightbox-close').focus();
       }
 
       function close() {
         lb.classList.remove('is-open');
         document.body.style.overflow = '';
+        if (opener && opener.focus) opener.focus();
       }
 
       images = Array.from(document.querySelectorAll('.gallery-item img'))
                     .map(img => ({ src: img.src, alt: img.alt }));
 
       document.querySelectorAll('.gallery-item').forEach((item, i) => {
+        item.setAttribute('tabindex', '0');
+        item.setAttribute('role', 'button');
+        item.setAttribute('aria-label', 'Enlarge photo: ' + (images[i] ? images[i].alt : ''));
         item.addEventListener('click', () => open(i));
+        item.addEventListener('keydown', e => {
+          if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(i); }
+        });
       });
 
       btnPrev.addEventListener('click', e => { e.stopPropagation(); show(current - 1); });
@@ -480,6 +509,7 @@
       const el = document.getElementById('about-mint-typed');
       if (!el) return;
       const msg = 'RNA MINT — Fresh ideas';
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) { el.textContent = msg; return; }
       let i = 0, started = false;
       function type() {
         if (i <= msg.length) {
