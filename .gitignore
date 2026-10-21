@@ -4,3 +4,8 @@
 # Local-only draft pages and scripts
 tmp/
 download_images.sh
+
+# Archives and maintenance files: kept on this computer only, not published to GitHub
+_archive/
+_tools/
+images/_archive/

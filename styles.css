@@ -330,6 +330,11 @@ li     { margin: 0.45rem 0; color: var(--muted-strong); }
 .intro > p:first-child { padding-right: 2rem; }
 .intro > p:last-child  { padding-left: 2rem; }
 
+/* Single-paragraph intro: one full-width column, no divider */
+.intro.intro-single { grid-template-columns: minmax(0, 1fr); }
+.intro.intro-single::after { display: none; }
+.intro.intro-single > p { padding: 2.25rem 2.5rem; }
+
 /* ── Section heading ─────────────────────────────────────────── */
 .section-heading {
   max-width: 720px;
