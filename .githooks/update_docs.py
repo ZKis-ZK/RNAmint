@@ -7,6 +7,7 @@ Run automatically by .githooks/pre-commit before every commit, or by hand:
 - Rewrites the block between the AUTO markers in README.md with a summary
   generated from the pages (pages, current grants, current team).
 - Sets <lastmod> in sitemap.xml to today for any page being committed.
+- When styles.css is committed, updates the ?v= version on each page's stylesheet link.
 """
 import datetime
 import html
@@ -125,7 +126,26 @@ def update_sitemap(staged):
     sitemap.write_text(s)
 
 
+def bump_stylesheet_version(staged):
+    """When styles.css changes, update ?v= on every page so browsers fetch the new file."""
+    if "styles.css" not in staged:
+        return []
+    version = TODAY.replace("-", "")
+    changed = []
+    for path, _, _ in PAGES:
+        f = ROOT / path
+        s = f.read_text()
+        new = re.sub(r'href="/styles\.css(\?v=\d+)?"', f'href="/styles.css?v={version}"', s)
+        if new != s:
+            f.write_text(new)
+            changed.append(path)
+    return changed
+
+
 if __name__ == "__main__":
     staged = staged_files()
+    for path in bump_stylesheet_version(staged):
+        print(path)  # printed paths are staged by the pre-commit hook
+        staged.add(path)
     update_readme(staged)
     update_sitemap(staged)
