@@ -10,6 +10,7 @@ Run automatically by .githooks/pre-commit before every commit, or by hand:
 - When styles.css is committed, updates the ?v= version on each page's stylesheet link.
 """
 import datetime
+import hashlib
 import html
 import re
 import subprocess
@@ -131,12 +132,13 @@ def bump_stylesheet_version(staged):
     """When styles.css changes, update ?v= on every page so browsers fetch the new file."""
     if "styles.css" not in staged:
         return []
-    version = TODAY.replace("-", "")
+    # A short fingerprint of the file's contents: changes whenever the styles change, even twice in a day
+    version = hashlib.sha1((ROOT / "styles.css").read_bytes()).hexdigest()[:8]
     changed = []
     for path, _, _ in PAGES:
         f = ROOT / path
         s = f.read_text()
-        new = re.sub(r'href="/styles\.css(\?v=\d+)?"', f'href="/styles.css?v={version}"', s)
+        new = re.sub(r'href="/styles\.css(\?v=[0-9a-f]+)?"', f'href="/styles.css?v={version}"', s)
         if new != s:
             f.write_text(new)
             changed.append(path)

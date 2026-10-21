@@ -15,7 +15,7 @@ Edit files locally  →  git commit  →  git push  →  GitHub Pages deploys  �
 Changes only go live when pushed. GitHub Pages usually deploys within 1–2 minutes of a push, but it can occasionally take 15–20 minutes.  
 After deploying, do a hard refresh in your browser: **Cmd + Shift + R** (Mac).
 
-Before every commit, a Git hook runs `.githooks/update_docs.py`. It refreshes the **Site summary** section at the end of this README and sets the `<lastmod>` date in `sitemap.xml` for any page being committed, so neither needs updating by hand. When `styles.css` is committed, it also updates the version number on each page's stylesheet link (`styles.css?v=YYYYMMDD`), so visitors' browsers fetch the new styles straight away instead of using a saved copy.  
+Before every commit, a Git hook runs `.githooks/update_docs.py`. It refreshes the **Site summary** section at the end of this README and sets the `<lastmod>` date in `sitemap.xml` for any page being committed, so neither needs updating by hand. When `styles.css` is committed, it also updates the version number on each page's stylesheet link (`styles.css?v=` plus a short fingerprint of the file), so visitors' browsers fetch the new styles straight away instead of using a saved copy.  
 On a new computer, switch the hook on once with:
 ```bash
 git config core.hooksPath .githooks
