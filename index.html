@@ -113,6 +113,53 @@
       .ac-spacer { height: 420px; }
       .ac-info { padding: 1rem 1.25rem; }
     }
+
+    /* ── Awards: click a photo to view it large, with its text ──── */
+    .ac-photo { position: relative; cursor: zoom-in; }
+    .ac-photo::after {
+      content: '⤢  View larger';
+      position: absolute; top: .75rem; right: .75rem;
+      padding: .25rem .6rem; border-radius: 20px;
+      background: rgba(10,18,30,.6); color: #fff;
+      font-size: .7rem; font-weight: 700; letter-spacing: .02em;
+      opacity: 0; transition: opacity .2s;
+      pointer-events: none;
+    }
+    .ac-photo:hover::after, .ac-photo:focus-visible::after { opacity: 1; }
+    .ac-photo:focus-visible { outline: 3px solid var(--brand); outline-offset: -3px; }
+    @media (hover: none) { .ac-photo::after { content: '⤢'; opacity: .85; } }
+
+    .award-lb.is-open { align-items: flex-start; overflow-y: auto; }
+    .awlb-figure {
+      margin: auto; padding: 1rem 0;
+      display: flex; flex-direction: column; align-items: center; gap: 1rem;
+      width: min(1200px, 100% - 7rem);
+      cursor: default;
+      animation: lb-scale .28s cubic-bezier(.22,.61,.36,1);
+    }
+    .awlb-img {
+      display: block; max-width: 100%; max-height: 64vh;
+      width: auto; height: auto; object-fit: contain;
+      border-radius: var(--radius-sm);
+      box-shadow: 0 32px 96px rgba(0,0,0,.65);
+    }
+    .awlb-cap {
+      width: 100%; max-width: 860px;
+      display: flex; flex-direction: column; gap: .5rem;
+      padding: 1.25rem 1.5rem;
+      background: var(--dark-bg); border-radius: var(--radius);
+      box-shadow: 0 16px 48px rgba(0,0,0,.4);
+    }
+    .awlb-cap .ac-title { font-size: 1.35rem; }
+    .awlb-cap .ac-desc  { font-size: .98rem; color: rgba(255,255,255,.8); }
+    .awlb-cap .ac-link  { font-size: .9rem; }
+    @media (max-width: 700px) {
+      .awlb-figure { width: 100%; padding-bottom: 4.5rem; }
+      .awlb-img { max-height: 50vh; }
+      .awlb-cap { padding: 1rem 1.1rem; }
+      .award-lb .lightbox-nav { position: fixed; top: auto; bottom: 1rem; transform: none; }
+      .award-lb .lightbox-nav:hover { transform: none; }
+    }
   </style>
   <!-- SEO: canonical & Open Graph -->
   <link rel="canonical" href="https://rnamint.com/">
@@ -390,6 +437,17 @@
 
   </main>
 
+  <!-- Awards viewer: large photo + slide text (filled from the carousel slides) -->
+  <div id="award-lb" class="lightbox award-lb" role="dialog" aria-modal="true" aria-label="Award viewer">
+    <button class="lightbox-close" aria-label="Close">&#215;</button>
+    <button class="lightbox-nav lightbox-prev" aria-label="Previous award">&#8592;</button>
+    <figure class="awlb-figure">
+      <img src="" alt="" class="awlb-img">
+      <figcaption class="awlb-cap"></figcaption>
+    </figure>
+    <button class="lightbox-nav lightbox-next" aria-label="Next award">&#8594;</button>
+  </div>
+
   <!-- Awards carousel -->
   <script>
   (function(){
@@ -441,6 +499,66 @@
       outer.addEventListener('focusin',    e => { if (e.target.matches(':focus-visible')) { focused = true; pause(); } });
       outer.addEventListener('focusout',   e => { if (!outer.contains(e.relatedTarget)) { focused = false; maybeResume(); } });
     }
+
+    // ── Awards viewer: click a slide photo to see it large with its text ──
+    const vw    = document.getElementById('award-lb');
+    const vImg  = vw.querySelector('.awlb-img');
+    const vCap  = vw.querySelector('.awlb-cap');
+    const vFig  = vw.querySelector('.awlb-figure');
+    let viewing = false, vIdx = 0, vOpener = null;
+
+    function bgUrl(el) {
+      const m = getComputedStyle(el).backgroundImage.match(/url\(["']?(.*?)["']?\)/);
+      return m ? m[1] : '';
+    }
+    function vShow(n) {
+      vIdx = (n + slides.length) % slides.length;
+      const s = slides[vIdx], photo = s.querySelector('.ac-photo');
+      vImg.src = bgUrl(photo);
+      vImg.alt = s.querySelector('.ac-title').textContent;
+      vCap.innerHTML = s.querySelector('.ac-info').innerHTML;
+    }
+    function vOpen(n) {
+      vOpener = document.activeElement;
+      viewing = true; pause();
+      vShow(n);
+      vw.classList.add('is-open');
+      vw.scrollTop = 0;
+      document.body.style.overflow = 'hidden';
+      vw.querySelector('.lightbox-close').focus();
+    }
+    function vClose() {
+      vw.classList.remove('is-open');
+      document.body.style.overflow = '';
+      viewing = false;
+      if (vIdx !== cur) show(vIdx);      // leave the carousel on the award last viewed
+      resetTimer();
+      if (vOpener && vOpener.focus) vOpener.focus();
+    }
+    const _rt2 = resetTimer;
+    resetTimer = function () { if (viewing) { pause(); return; } _rt2(); };
+
+    slides.forEach((s, i) => {
+      const photo = s.querySelector('.ac-photo');
+      const title = s.querySelector('.ac-title').textContent;
+      photo.setAttribute('tabindex', '0');
+      photo.setAttribute('role', 'button');
+      photo.setAttribute('aria-label', 'View larger: ' + title);
+      photo.addEventListener('click', () => vOpen(i));
+      photo.addEventListener('keydown', e => {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); vOpen(i); }
+      });
+    });
+    vw.querySelector('.lightbox-prev').addEventListener('click', e => { e.stopPropagation(); vShow(vIdx - 1); });
+    vw.querySelector('.lightbox-next').addEventListener('click', e => { e.stopPropagation(); vShow(vIdx + 1); });
+    vw.querySelector('.lightbox-close').addEventListener('click', vClose);
+    vw.addEventListener('click', e => { if (!vFig.contains(e.target) && !e.target.closest('.lightbox-nav')) vClose(); });
+    document.addEventListener('keydown', e => {
+      if (!viewing) return;
+      if (e.key === 'Escape')     vClose();
+      if (e.key === 'ArrowLeft')  vShow(vIdx - 1);
+      if (e.key === 'ArrowRight') vShow(vIdx + 1);
+    });
 
     resetTimer();
   })();
