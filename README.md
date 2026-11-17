@@ -183,7 +183,7 @@ _Last generated: 2026-11-17_
 |---|---|---|---|
 | https://rnamint.com/ | `index.html` | 2026-11-17 | yes |
 | https://rnamint.com/research/ | `research/index.html` | 2026-10-28 | yes |
-| https://rnamint.com/team/ | `team/index.html` | 2026-10-21 | yes |
+| https://rnamint.com/team/ | `team/index.html` | 2026-11-17 | yes |
 | https://rnamint.com/contact/ | `contact/index.html` | 2026-10-21 | yes |
 | https://rnamint.com/zoltan/ | `zoltan/index.html` | 2026-10-21 | no |
 | https://rnamint.com/404.html | `404.html` | 2026-10-21 | no |
